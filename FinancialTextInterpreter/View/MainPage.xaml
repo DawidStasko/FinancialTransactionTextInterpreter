@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FinancialTextInterpreter.MainPage">
+
+					<Grid RowSpacing="5" ColumnSpacing="5">
+										<Grid.RowDefinitions>
+															<RowDefinition Height="1*" />
+															<RowDefinition Height="1*"/>
+															<RowDefinition Height="10*" />
+															<RowDefinition Height="1*"/>
+										</Grid.RowDefinitions>
+										<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="5*" />
+															<ColumnDefinition Width="2*" />
+										</Grid.ColumnDefinitions>
+										<Editor Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Text="{Binding InputText}" ></Editor>
+										<Button Grid.Column="1" Grid.Row="0" Text="Submit" Clicked="SubmitTransaction"></Button>
+										<Button Grid.Column="1" Grid.Row="1" Text="Clear" Clicked="ClearTransaction"></Button>
+										<ListView Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding TypedInTransactions}">
+															<ListView.ItemTemplate>
+																				<DataTemplate>
+																									<ViewCell >
+																														<Border Margin="10, 5, 10, 5" Padding="10, 5, 10, 5">
+																																			<Label Text="{Binding Path=TransactionText}"></Label>
+																														</Border>
+																														<ViewCell.ContextActions>
+																																			<MenuItem Text="Edit" Clicked="EditItem" CommandParameter="{Binding .}"/>
+																																			<MenuItem Text="Delete" Clicked="DeleteItem" CommandParameter="{Binding .}"/>
+																														</ViewCell.ContextActions>
+																									</ViewCell>
+																				</DataTemplate>
+															</ListView.ItemTemplate>
+										</ListView>
+										<Border	Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
+															<Button Text="Save all to XLSX" Clicked="ProcessTransactions"></Button>
+										</Border>
+					</Grid>
+</ContentPage>

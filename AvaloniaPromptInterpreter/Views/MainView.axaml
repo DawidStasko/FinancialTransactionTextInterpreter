@@ -1,0 +1,58 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AvaloniaPromptInterpreter.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaPromptInterpreter.Views.MainView"
+             x:DataType="vm:MainViewModel">
+					<Design.DataContext>
+										<!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+										<vm:MainViewModel />
+					</Design.DataContext>
+
+					<Grid RowDefinitions="*,*,2*,2*,2*,2*,2*,*"
+											ColumnDefinitions="5*, 2*">
+										
+										<TextBox 
+															Name="TextInput"
+															Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="5, 5, 5, 5"
+															TextWrapping="Wrap" AcceptsReturn="True"/>
+
+										<Popup PlacementTarget="{Binding ElementName = TextInput}"
+																	Placement="Bottom" Width="200"
+																	IsOpen="True">
+															<ListBox	ItemsSource="{Binding AutoCompleteSuggestions}">
+																				<ListBox.ItemTemplate>
+																									<DataTemplate>
+																														<TextBlock Text="{Binding}" />
+																									</DataTemplate>
+																				</ListBox.ItemTemplate>
+															</ListBox>
+										</Popup>
+
+
+										<Button 
+															Content="Submit" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+															Grid.Column="1" Grid.Row="0" 
+															HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+															Margin="5,5,5,5"></Button>
+										<Button 
+															Content="Clear" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+															Grid.Column="1" Grid.Row="1" 
+															HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+															Margin="5,5,5,5"></Button>
+
+										<ListBox ZIndex="1" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="5"
+																			ItemsSource="{Binding TypedInTransactions}">
+															<ListBox.ItemTemplate>
+																				<DataTemplate>
+																														<TextBlock Text="{Binding TransactionText}" TextWrapping="Wrap" 
+																																									LineHeight="20" />
+																				</DataTemplate>
+															</ListBox.ItemTemplate>
+										</ListBox>
+					</Grid>
+
+</UserControl>
