@@ -24,15 +24,10 @@
 
 															<Grid>
 																				<ListBox Name="sugestionsListBox"
-																													Visibility="{Binding ListBoxVisibility, ElementName=userControl}"
 																													ItemsSource="{Binding SuggestionsList, ElementName=userControl, UpdateSourceTrigger=PropertyChanged}"
 																													SelectedItem="{Binding SelectedItem, ElementName=userControl, UpdateSourceTrigger=PropertyChanged}" />
-																				<DatePicker 
-																									Visibility="{Binding DatePickerVisibility, ElementName=userControl}"
-																									SelectedDate="{Binding SelectedDate, ElementName=userControl, UpdateSourceTrigger=PropertyChanged}"
-																									/>
-																				
-															</Grid
+
+															</Grid>
 										</Popup>
 					</Grid>
 </UserControl>
