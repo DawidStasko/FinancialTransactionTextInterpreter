@@ -10,7 +10,8 @@ on:
     branches: [ "master" ]
 
 env:
-  PROJECT_PATH: WpfFinancialTransactionPromptInterpreter/WpfFinancialTransactionPromptInterpreter.csproj
+  ProjectPath: WpfFinancialTransactionPromptInterpreter
+  ProjectName: WpfFinancialTransactionPromptInterpreter.csproj
 
 jobs:
   build:
@@ -25,24 +26,16 @@ jobs:
         dotnet-version: 8.0.x
     - name: Restore dependencies
       run: dotnet restore 
-    - name: Build
-      run: dotnet build ${{env.PROJECT_PATH}} -c Release --no-restore
-    - name: Publish
-      run: dotnet publish ${{env.PROJECT_PATH}} /p:PublishProfile=WpfFinancialTransactionPromptInterpreter\Properties\PublishProfiles\FolderProfile.pubxml --no-build
-    
+      
+    - name: Build and Publish
+      run:  dotnet publish ${{env.ProjectPath}}\${{env.ProjectName}} /p:PublishProfile=${{env.ProjectPath}}\Properties\PublishProfiles\FolderProfile.pubxml
+    - run: |
+        ls 
+        ls WpfFinancialTransactionPromptInterpreter
+        ls WpfFinancialTransactionPromptInterpreter/bin
+        ls WpfFinancialTransactionPromptInterpreter/bin/Release
+        ls ${{env.ProjectPath}}\Properties\PublishProfiles
     - name: Create release
-      id: create_release
-      uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ReleaseTest
-        release_name: Release test
-        body: |
-          Changes in this Release
-    - name: Upload Project
-      uses: csexton/release-asset-action@v2    
-      with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: WpfFinancialTransactionPromptInterpreter/bin/Publish/*.exe
-          release-url: ${{ steps.create_release.outputs.upload_url }}
+        GH_TOKEN: ${{ github.token }}
+      run: gh release create testever WpfFinancialTransactionPromptInterpreter/bin/Publish/WpfFinancialTransactionPromptInterpreter.exe
