@@ -10,7 +10,8 @@ on:
     branches: [ "master" ]
 
 env:
-  PROJECT_PATH: WpfFinancialTransactionPromptInterpreter/WpfFinancialTransactionPromptInterpreter.csproj
+  ProjectPath: WpfFinancialTransactionPromptInterpreter
+  ProjectName: WpfFinancialTransactionPromptInterpreter.csproj
 
 jobs:
   build:
@@ -28,6 +29,6 @@ jobs:
     - name: Build
       run: dotnet build ${{env.PROJECT_PATH}} -c Release --no-restore
     - name: Publish
-      run: dotnet publish ${{env.PROJECT_PATH}} /p:PublishProfile=WpfFinancialTransactionPromptInterpreter\Properties\PublishProfiles\FolderProfile.pubxml --no-build
+      run:  dotnet publish ${{env.ProjectPath}}\${{env.ProjectName}} /p:PublishProfile=${{env.ProjectPath}}\Properties\PublishProfiles\FolderProfile.pubxml
     
     - run: gh release create testever WpfFinancialTransactionPromptInterpreter/bin/Publish/WpfFinancialTransactionPromptInterpreter.exe
