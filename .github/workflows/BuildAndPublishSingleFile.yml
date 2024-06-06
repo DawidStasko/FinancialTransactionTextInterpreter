@@ -35,7 +35,8 @@ jobs:
         ls WpfFinancialTransactionPromptInterpreter/bin
         ls WpfFinancialTransactionPromptInterpreter/bin/Release
         ls ${{env.ProjectPath}}\Properties\PublishProfiles
+        
     - name: Create release
       env:
         GH_TOKEN: ${{ github.token }}
-      run: gh release create 0.0.1 WpfFinancialTransactionPromptInterpreter/bin/Publish/WpfFinancialTransactionPromptInterpreter.exe
+      run: gh release create 0.0.2 
