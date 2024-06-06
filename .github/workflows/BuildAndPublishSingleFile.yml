@@ -38,10 +38,9 @@ jobs:
       with:
         tag_name: ReleaseTest
         release_name: Release test
-        body: |
-          Changes in this Release
+        
     - name: Upload Project
-      uses: csexton/release-asset-action@v2    
+      uses: csexton/release-asset-action@v3    
       with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           pattern: WpfFinancialTransactionPromptInterpreter/bin/Publish/*.exe
