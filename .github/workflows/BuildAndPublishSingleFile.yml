@@ -30,9 +30,12 @@ jobs:
       run: dotnet build ${{env.PROJECT_PATH}} -c Release --no-restore
     - name: Publish
       run:  dotnet publish ${{env.ProjectPath}}\${{env.ProjectName}} /p:PublishProfile=${{env.ProjectPath}}\Properties\PublishProfiles\FolderProfile.pubxml --no-build
-    - run: ls 
-    - run: cd WpfFinancialTransactionPromptInterpreter
-    - run: ls 
+    - run: |
+        ls 
+        ls WpfFinancialTransactionPromptInterpreter
+        ls WpfFinancialTransactionPromptInterpreter/bin
+        ls WpfFinancialTransactionPromptInterpreter/bin/Publish
+    
     - name: Create release
       env:
         GH_TOKEN: ${{ github.token }}
