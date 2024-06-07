@@ -23,6 +23,11 @@ jobs:
       run: dotnet restore 
     - name: Build 
       run: dotnet build ${{env.ProjectPath}}\${{env.ProjectName}} -c Release --no-restore
+    - run: |
+        ls
+        ls ${{env.ProjectPath}}
+        ls ${{env.ProjectPath}}\Properties
+        ls ${{env.ProjectPath}}\Properties\PublishProfiles
     - name: Publish
       run: dotnet publish ${{env.ProjectPath}}\${{env.ProjectName}} /p:PublishProfile=${{env.ProjectPath}}\Properties\PublishProfiles\FolderProfile.pubxml --no-build
     - name: Create release
