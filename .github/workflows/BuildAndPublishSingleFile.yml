@@ -28,6 +28,7 @@ jobs:
       id: current-time
     - name: Create release
       env:
-        TIME: "${{ steps.current-time.outputs.time }}"
         GH_TOKEN: ${{ github.token }}
-      run: gh release create $TIME WpfFinancialTransactionPromptInterpreter/bin/Publish/WpfFinancialTransactionPromptInterpreter.exe
+      run: |
+        $time = Get-Date -Format "yyyy-MM-dd_HH-mm" 
+        gh release create $time WpfFinancialTransactionPromptInterpreter/bin/Publish/WpfFinancialTransactionPromptInterpreter.exe
