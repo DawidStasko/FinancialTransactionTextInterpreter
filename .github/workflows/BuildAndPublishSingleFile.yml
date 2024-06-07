@@ -23,7 +23,11 @@ jobs:
       run: dotnet restore 
     - name: Build and publish
       run: dotnet publish ${{env.ProjectPath}}\${{env.ProjectName}} /p:PublishProfile=${{env.ProjectPath}}\Properties\PublishProfiles\FolderProfile.pubxml
+    - name: Get current time
+      uses: gerred/actions/current-time@master
+      id: current-time
     - name: Create release
       env:
+        TIME: "${{ steps.current-time.outputs.time }}"
         GH_TOKEN: ${{ github.token }}
-      run: gh release create ${{ github.event.repository.updated_at}} WpfFinancialTransactionPromptInterpreter/bin/Publish/WpfFinancialTransactionPromptInterpreter.exe
+      run: gh release create $TIME WpfFinancialTransactionPromptInterpreter/bin/Publish/WpfFinancialTransactionPromptInterpreter.exe
