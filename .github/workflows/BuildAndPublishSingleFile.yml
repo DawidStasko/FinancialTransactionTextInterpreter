@@ -24,12 +24,14 @@ jobs:
       run: dotnet build ${{env.ProjectPath}}\${{env.ProjectName}} -c Release --no-restore
   publish:
     name: Publish Single File App
+    needs: build
     runs-on: windows-latest
     steps:
     - name: Publish
       run: dotnet publish ${{env.ProjectPath}}\${{env.ProjectName}} /p:PublishProfile=${{env.ProjectPath}}\Properties\PublishProfiles\FolderProfile.pubxml
   release:
     name: Create release
+    needs: publish
     runs-on: windows-latest
     steps:
     - name: Create release
