@@ -39,6 +39,6 @@ jobs:
         }
         Compress-Archive @compress
         Write-Host "Files Compressed successfully."
-        gh release create $time WpfFinancialTransactionPromptInterpreter/bin/Publish/WpfFinancialTransactionPromptInterpreter.exe, WpfFinancialTransactionPromptInterpreter/bin/Publish/AppWithExcelTemplate.zip
+        gh release create $time "WpfFinancialTransactionPromptInterpreter/bin/Publish/WpfFinancialTransactionPromptInterpreter.exe", "WpfFinancialTransactionPromptInterpreter/bin/Publish/AppWithExcelTemplate.zip"
         Write-Host "Release created successfully."
 
