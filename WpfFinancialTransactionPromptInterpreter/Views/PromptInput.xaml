@@ -4,6 +4,7 @@
 													xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 													xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 													xmlns:local="clr-namespace:WpfFinancialTransactionPromptInterpreter.Views"
+													xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
 													mc:Ignorable="d"
 													d:DesignHeight="450"
 													d:DesignWidth="800">
@@ -26,12 +27,12 @@
 																															Margin="5">
 										</local:CustomTextBox>
 
-										<Button Grid.Row="0"
+										<ui:Button Grid.Row="0"
 																		Grid.Column="1"
 																		Margin="5"
 																		Content="Process Text"
 																		Command="{Binding ProcessTextCommand}" />
-										<Button Grid.Row="1"
+										<ui:Button Grid.Row="1"
 																		Grid.Column="1"
 																		Margin="5"
 																		Content="Clear"
