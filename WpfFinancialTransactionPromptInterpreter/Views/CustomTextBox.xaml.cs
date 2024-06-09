@@ -112,11 +112,11 @@ public partial class CustomTextBox : UserControl
 
 										if (thisObject.SuggestionsList.Count > 0)
 										{
-															thisObject.popUp.IsOpen = true;
+															thisObject.PART_SuggestionsPopup.IsOpen = true;
 										}
 										else
 										{
-															thisObject.popUp.IsOpen = false;
+															thisObject.PART_SuggestionsPopup.IsOpen = false;
 										}
 					}
 
@@ -128,7 +128,8 @@ public partial class CustomTextBox : UserControl
 															caretIndex--;
 										}
 										Rect rect = textBox.GetRectFromCharacterIndex(caretIndex);
-										popUp.PlacementRectangle = rect;
+										PART_SuggestionsPopup.PlacementRectangle = rect;
+										PART_SuggestionsPopup.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
 					}
 
 					private void textBox_PreviewKeyDown(object sender, KeyEventArgs e)

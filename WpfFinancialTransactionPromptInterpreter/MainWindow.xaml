@@ -1,29 +1,38 @@
-﻿<Window x:Class="WpfFinancialTransactionPromptInterpreter.MainWindow"
-								xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-								xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-								xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-								xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-								xmlns:local="clr-namespace:WpfFinancialTransactionPromptInterpreter"
-								xmlns:customControls="clr-namespace:WpfFinancialTransactionPromptInterpreter.Views"
-								mc:Ignorable="d"
-								Title="Financial Transaction Interpreter"
-								Height="450"
-								Width="800">
+﻿<ui:FluentWindow
+										x:Class="WpfFinancialTransactionPromptInterpreter.MainWindow"
+																	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+																	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+																	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+																	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+																	xmlns:local="clr-namespace:WpfFinancialTransactionPromptInterpreter"
+																	xmlns:customControls="clr-namespace:WpfFinancialTransactionPromptInterpreter.Views"
+																	xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+																	mc:Ignorable="d"
+																	Title="Financial Transaction Interpreter"
+																	Height="450"
+																	Width="800">
+
 					<Grid>
-										<Grid.ColumnDefinitions>
-															<ColumnDefinition Width="35" />
-															<ColumnDefinition Width="*" />
-										</Grid.ColumnDefinitions>
+
 										<Grid.RowDefinitions>
+															<RowDefinition Height="auto" />
+															<RowDefinition Height="50" />
 															<RowDefinition Height="2*" />
 															<RowDefinition Height="5*" />
 										</Grid.RowDefinitions>
-										<Button Grid.Column="0" Grid.Row="0" Content="F" Width="35" Height="35" VerticalAlignment="Top" Click="OpenFileDialog"/>
-										<customControls:PromptInput Grid.Row="0"
-																																						Grid.Column="1"
+										<ui:TitleBar
+																				Title="Transaction Prompt Interpreter"
+																				Grid.Row="0"/>
+										
+										<Menu Grid.Row="1">
+															<ui:MenuItem Icon="{ui:SymbolIcon DocumentData32}"
+																												Click="OpenFileDialog"/>
+										</Menu>
+										<customControls:PromptInput Grid.Row="2"
+																																						
 																																						DataContext="{Binding PromptInputVM}" />
-										<customControls:InscribedTransactionsList Grid.Row="1"
-																																																				Grid.Column="1"
+										<customControls:InscribedTransactionsList Grid.Row="3"
+																																																				
 																																																				DataContext="{Binding InscribedTransactionsListVM}" />
 					</Grid>
-</Window>
+</ui:FluentWindow>
