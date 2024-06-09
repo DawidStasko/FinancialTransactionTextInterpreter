@@ -31,4 +31,10 @@ jobs:
         GH_TOKEN: ${{ github.token }}
       run: |
         $time = Get-Date -Format "yyyy-MM-dd_HH-mm" 
-        gh release create $time WpfFinancialTransactionPromptInterpreter/bin/Publish/WpfFinancialTransactionPromptInterpreter.exe
+        $compress = @{
+          Path = "WpfFinancialTransactionPromptInterpreter/FinancialData.xlsx", "WpfFinancialTransactionPromptInterpreter/bin/Publish/WpfFinancialTransactionPromptInterpreter.exe"
+          CompressionLevel = "Fastest"
+          DestinationPath = "WpfFinancialTransactionPromptInterpreter/bin/Publish/AppWithExcelTemplate.zip"
+        }
+        Compress-Archive @compress
+        gh release create $time WpfFinancialTransactionPromptInterpreter/bin/Publish/WpfFinancialTransactionPromptInterpreter.exe, WpfFinancialTransactionPromptInterpreter/bin/Publish/AppWithExcelTemplate.zip
