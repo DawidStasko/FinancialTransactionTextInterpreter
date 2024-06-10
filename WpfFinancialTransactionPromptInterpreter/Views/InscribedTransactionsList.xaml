@@ -1,57 +1,63 @@
 ﻿<UserControl x:Class="WpfFinancialTransactionPromptInterpreter.Views.InscribedTransactionsList"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:WpfFinancialTransactionPromptInterpreter.Views"
+													xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+													xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+													xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+													xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+													xmlns:local="clr-namespace:WpfFinancialTransactionPromptInterpreter.Views"
 													xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
 													mc:Ignorable="d"
-             d:DesignHeight="450"
-             d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-        
+													d:DesignHeight="450"
+													d:DesignWidth="800">
+					<Grid>
+										<Grid.RowDefinitions>
+															<RowDefinition Height="5*" />
+															<RowDefinition Height="1*" />
+										</Grid.RowDefinitions>
+
         <ui:ListView Name="ItemsList"
-                  Grid.Row="0"
-                  ItemsSource="{Binding InscribedTransactions}"
+																							Grid.Row="0"
+																							ItemsSource="{Binding InscribedTransactions}"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Border Margin="0"
-																												Padding="0,6,0,6"
-																												HorizontalAlignment="Stretch"
-																												Background="{DynamicResource FlyoutBackground}"
-																												BorderBrush="{DynamicResource FlyoutBorderBrush}"
-																												BorderThickness="1"
-																												CornerRadius="8"
-																												SnapsToDevicePixels="True">
-                        <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Padding="5">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="Edit"
-                                              Command="{Binding DataContext.EditCommand, Source={x:Reference ItemsList}}"
-                                              CommandParameter="{Binding}" />
-                                    <MenuItem Header="Delete"
-                                              Command="{Binding DataContext.DeleteCommand, Source={x:Reference ItemsList}}"
-                                              CommandParameter="{Binding}" />
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                    </Border>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+															<ListView.ItemContainerStyle>
+																				<Style TargetType="ListBoxItem">
+																									<Setter Property="HorizontalContentAlignment"
+																																	Value="Stretch" />
+																				</Style>
+															</ListView.ItemContainerStyle>
+
+															<ListView.ItemTemplate>
+																				<DataTemplate>
+																									<Border Margin="0"
+																																	Padding="0,6,0,6"
+																																	HorizontalAlignment="Stretch"
+																																	Background="{DynamicResource FlyoutBackground}"
+																																	BorderBrush="{DynamicResource FlyoutBorderBrush}"
+																																	BorderThickness="1"
+																																	CornerRadius="8"
+																																	SnapsToDevicePixels="True">
+																														<TextBlock Text="{Binding Text}"
+																																									TextWrapping="Wrap"
+																																									Padding="5">
+																																			<TextBlock.ContextMenu>
+																																								<ContextMenu>
+																																													<MenuItem Header="Edit"
+																																																							Command="{Binding DataContext.EditCommand, Source={x:Reference ItemsList}}"
+																																																							CommandParameter="{Binding}" />
+																																													<MenuItem Header="Delete"
+																																																							Command="{Binding DataContext.DeleteCommand, Source={x:Reference ItemsList}}"
+																																																							CommandParameter="{Binding}" />
+																																								</ContextMenu>
+																																			</TextBlock.ContextMenu>
+																														</TextBlock>
+																									</Border>
+																				</DataTemplate>
+															</ListView.ItemTemplate>
         </ui:ListView>
-        
-        <Button Content="Save Transactions"
-                Grid.Row="1"
-                Command="{Binding ProcessTransactionsCommand}" />
-    </Grid>
+
+										<Button Content="Save Transactions"
+																		HorizontalAlignment="Stretch"
+																		VerticalAlignment="Stretch"
+																		Grid.Row="1"
+																		Command="{Binding ProcessTransactionsCommand}" />
+					</Grid>
 </UserControl>
