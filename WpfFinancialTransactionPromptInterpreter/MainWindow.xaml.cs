@@ -1,7 +1,7 @@
 ﻿using Microsoft.Win32;
 using System.Windows;
+using Wpf.Ui;
 using Wpf.Ui.Controls;
-using WpfFinancialTransactionPromptInterpreter.Model.Interfaces;
 using WpfFinancialTransactionPromptInterpreter.ViewModels;
 
 namespace WpfFinancialTransactionPromptInterpreter;
@@ -11,10 +11,11 @@ namespace WpfFinancialTransactionPromptInterpreter;
 public partial class MainWindow : FluentWindow
 {
 
-					public MainWindow(MainWindowVM mainWindowVM, IConfig config)
+					public MainWindow(MainWindowVM mainWindowVM, ISnackbarService snackbarService)
 					{
 										InitializeComponent();
 										this.DataContext = mainWindowVM;
+										snackbarService.SetSnackbarPresenter(SnackbarPresenter);
 					}
 
 					private void CheckAllFiles()

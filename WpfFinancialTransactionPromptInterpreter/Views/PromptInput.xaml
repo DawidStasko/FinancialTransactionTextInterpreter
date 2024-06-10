@@ -13,29 +13,26 @@
 															<ColumnDefinition Width="5*" />
 															<ColumnDefinition Width="1*" />
 										</Grid.ColumnDefinitions>
-										<Grid.RowDefinitions>
-															<RowDefinition Height="1*" />
-															<RowDefinition Height="1*" />
-										</Grid.RowDefinitions>
 										<local:CustomTextBox x:Name="txtInput"
-																															Grid.Row="0"
-																															Grid.RowSpan="2"
 																															Grid.Column="0"
 																															TextValue="{Binding TextInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 																															ActualWord="{Binding ActualWord, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
 																															SuggestionsList="{Binding SuggestionsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-																															Margin="5">
+																															>
 										</local:CustomTextBox>
-
-										<ui:Button Grid.Row="0"
-																		Grid.Column="1"
-																		Margin="5"
-																		Content="Process Text"
-																		Command="{Binding ProcessTextCommand}" />
-										<ui:Button Grid.Row="1"
-																		Grid.Column="1"
-																		Margin="5"
-																		Content="Clear"
-																		Command="{Binding ClearTextCommand}" />
+										<UniformGrid Grid.Column="1" Rows="2">
+															<ui:Button Margin="5"
+																										Grid.Row="0"
+																										HorizontalAlignment="Stretch"
+																										VerticalAlignment="Stretch"
+																										Content="Process Text"
+																										Command="{Binding ProcessTextCommand}" />
+															<ui:Button Margin="5"
+																										Grid.Row="1"
+																										HorizontalAlignment="Stretch"
+																										VerticalAlignment="Stretch"
+																										Content="Clear"
+																										Command="{Binding ClearTextCommand}" />
+										</UniformGrid>
 					</Grid>
 </UserControl>

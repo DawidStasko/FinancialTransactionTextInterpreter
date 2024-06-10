@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace WpfFinancialTransactionPromptInterpreter.Views;
 
@@ -11,10 +10,5 @@ public partial class InscribedTransactionsList : UserControl
 					public InscribedTransactionsList()
 					{
 										InitializeComponent();
-					}
-
-					private void EditItemCommand(object sender, RoutedEventArgs e)
-					{
-
 					}
 }
