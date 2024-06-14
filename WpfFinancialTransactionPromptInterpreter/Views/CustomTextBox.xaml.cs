@@ -19,10 +19,10 @@ public partial class CustomTextBox : UserControl
 									DependencyProperty.Register("SuggestionsList", typeof(IList<string>), typeof(CustomTextBox), new PropertyMetadata(null, OnSuggestionsListPropertyChanged));
 
 					public static readonly DependencyProperty SelectedItemProperty =
-									DependencyProperty.Register("SelectedItem", typeof(object), typeof(CustomTextBox), new PropertyMetadata(null));
+									DependencyProperty.Register("SelectedItem", typeof(string), typeof(CustomTextBox), new PropertyMetadata(null));
 
 					public static readonly DependencyProperty SelectedDateProperty =
-									DependencyProperty.Register("SelectedDate", typeof(object), typeof(CustomTextBox), new PropertyMetadata(null));
+									DependencyProperty.Register("SelectedDate", typeof(DateTime?), typeof(CustomTextBox), new PropertyMetadata(null));
 
 					public string TextValue
 					{
@@ -42,15 +42,15 @@ public partial class CustomTextBox : UserControl
 										set { SetValue(SuggestionsListProperty, value); }
 					}
 
-					public object SelectedItem
+					public string? SelectedItem
 					{
-										get { return GetValue(SelectedItemProperty); }
+										get { return (string?)GetValue(SelectedItemProperty); }
 										set { SetValue(SelectedItemProperty, value); }
 					}
 
-					public object SelectedDate
+					public DateTime? SelectedDate
 					{
-										get { return GetValue(SelectedDateProperty); }
+										get { return (DateTime?)GetValue(SelectedDateProperty); }
 										set { SetValue(SelectedDateProperty, value); }
 					}
 
@@ -59,7 +59,7 @@ public partial class CustomTextBox : UserControl
 										InitializeComponent();
 					}
 
-					private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+					private void TextInput_TextChanged(object sender, TextChangedEventArgs e)
 					{
 										TextBox? textBox = sender as TextBox;
 										if (textBox != null)
@@ -110,76 +110,187 @@ public partial class CustomTextBox : UserControl
 
 										thisObject.SelectedItem = null;
 
-										if (thisObject.SuggestionsList.Count > 0)
+										if (thisObject.SuggestionsList.Count == 0)
 										{
-															thisObject.PART_SuggestionsPopup.IsOpen = true;
+															thisObject.SuggestionsPopup.IsOpen = false;
+															return;
 										}
-										else
+										bool isDate = DateTime.TryParse(thisObject.SuggestionsList.FirstOrDefault(), out DateTime result);
+										if (isDate)
 										{
-															thisObject.PART_SuggestionsPopup.IsOpen = false;
+
+															thisObject.SelectedDate = result;
+															SetCalendarVisible(thisObject);
+															thisObject.SuggestionsPopup.IsOpen = true;
+															return;
 										}
+
+										SetSuggestionsListVisible(thisObject);
+										thisObject.SuggestionsPopup.IsOpen = true;
+					}
+
+					private static void SetSuggestionsListVisible(CustomTextBox thisObject)
+					{
+										thisObject.SuggestionsListBox.Visibility = Visibility.Visible;
+										thisObject.DatePicker.Visibility = Visibility.Collapsed;
+					}
+					private static void SetCalendarVisible(CustomTextBox thisObject)
+					{
+										thisObject.SuggestionsListBox.Visibility = Visibility.Collapsed;
+										thisObject.DatePicker.Visibility = Visibility.Visible;
 					}
 
 					private void popUp_Opened(object sender, EventArgs e)
 					{
-										int caretIndex = textBox.CaretIndex;
-										while (caretIndex > 0 && textBox.Text[caretIndex - 1] != ' ')
+										int caretIndex = TextInput.CaretIndex;
+										while (caretIndex > 0 && TextInput.Text[caretIndex - 1] != ' ')
 										{
 															caretIndex--;
 										}
-										Rect rect = textBox.GetRectFromCharacterIndex(caretIndex);
-										PART_SuggestionsPopup.PlacementRectangle = rect;
-										PART_SuggestionsPopup.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+										Rect rect = TextInput.GetRectFromCharacterIndex(caretIndex);
+										SuggestionsPopup.PlacementRectangle = rect;
+										SuggestionsPopup.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
 					}
 
-					private void textBox_PreviewKeyDown(object sender, KeyEventArgs e)
+					private void TextInput_PreviewKeyDown(object sender, KeyEventArgs e)
 					{
-										if (SuggestionsList.Count == 0)
+										if (SuggestionsList.Count == 0) return;
+
+										Action<KeyEventArgs> action = e.Key switch
+										{
+
+															Key.Down => MoveDown,
+															Key.Up => MoveUp,
+															Key.Right => MoveRight,
+															Key.Left => MoveLeft,
+															Key.Enter or Key.Tab or Key.Space => ConfirmSelection,
+															Key.Escape => CancelSelection,
+															Key.Back => DeleteLastLetter,
+															_ => (e) => { } // No operation for unhandled keys
+										};
+										action(e);
+					}
+
+					private void DeleteLastLetter(RoutedEventArgs e)
+					{
+										int caretIndex = TextInput.CaretIndex;
+										if (caretIndex > 0)
+										{
+															TextValue = TextValue.Remove(caretIndex - 1, 1);
+															TextInput.CaretIndex = caretIndex - 1;
+										}
+										e.Handled = true;
+					}
+
+					private void CancelSelection(RoutedEventArgs e)
+					{
+										e.Handled = true;
+										SelectedDate = null;
+										SelectedItem = null;
+										SuggestionsPopup.IsOpen = false;
+					}
+
+					private void ConfirmSelection(RoutedEventArgs e)
+					{
+										e.Handled = true;
+										int caretIndex = TextInput.CaretIndex;
+										int wordToReplaceLength = ActualWord.Length;
+
+										if (SelectedDate != null)
+										{
+															string date = DateOnly.FromDateTime((DateTime)SelectedDate).ToString("dd-MM-yyyy");
+															string textToInsert = ActualWord[0] + date + " ";
+															string textBeforeActualWord = TextValue.Substring(0, caretIndex - wordToReplaceLength);
+															string textAfterActualWord = TextValue.Substring(caretIndex);
+
+															TextValue = textBeforeActualWord + textToInsert + textAfterActualWord;
+															TextInput.CaretIndex = caretIndex + textToInsert.Length - wordToReplaceLength + 1;
+															SelectedDate = null;
 															return;
-
-										if (e.Key == Key.Down)
-										{
-															if (SelectedItem == null)
-															{
-																				SelectedItem = SuggestionsList[0];
-																				return;
-															}
-															else
-															{
-																				int actualSelectedItemIndex = SuggestionsList.IndexOf(SelectedItem.ToString());
-																				SelectedItem = SuggestionsList[(actualSelectedItemIndex + 1) % SuggestionsList.Count];
-															}
 										}
-										else if (e.Key == Key.Up)
+
+
+										if (SelectedItem != null)
 										{
-															if (SelectedItem == null)
-															{
-																				SelectedItem = SuggestionsList[SuggestionsList.Count - 1];
-																				return;
-															}
-															else
-															{
-																				int actualSelectedItemIndex = SuggestionsList.IndexOf(SelectedItem.ToString());
-																				SelectedItem = SuggestionsList[(actualSelectedItemIndex - 1 + SuggestionsList.Count) % SuggestionsList.Count];
-															}
+															string textToInsert = ActualWord[0] + SelectedItem.ToString() + " ";
+															string textBeforeActualWord = TextValue.Substring(0, caretIndex - wordToReplaceLength);
+															string textAfterActualWord = TextValue.Substring(caretIndex);
+
+															TextValue = textBeforeActualWord + textToInsert + textAfterActualWord;
+															TextInput.CaretIndex = caretIndex + textToInsert.Length - wordToReplaceLength + 1;
+															SelectedItem = null;
 										}
-										else if (e.Key == Key.Enter || e.Key == Key.Space || e.Key == Key.Tab)
+
+					}
+
+					private void MoveUp(RoutedEventArgs e)
+					{
+										e.Handled = true;
+
+										if (this.DatePicker.Visibility == Visibility.Visible)
 										{
+															SelectedDate = SelectedDate == null ? DateTime.Now : ((DateTime)SelectedDate).AddDays(-7);
+															return;
+										}
 
-															if (SelectedItem != null)
-															{
-																				int caretIndex = textBox.CaretIndex;
-																				int wordToReplaceLength = ActualWord.Length;
+										if (SelectedItem == null)
+										{
+															SelectedItem = SuggestionsList[SuggestionsList.Count - 1];
+										}
+										else
+										{
+															int actualSelectedItemIndex = SuggestionsList.IndexOf(SelectedItem.ToString());
+															SelectedItem = SuggestionsList[(actualSelectedItemIndex - 1 + SuggestionsList.Count) % SuggestionsList.Count];
+										}
 
-																				string textToInsert = ActualWord[0] + SelectedItem.ToString() + " ";
-																				string textBeforeActualWord = TextValue.Substring(0, caretIndex - wordToReplaceLength);
-																				string textAfterActualWord = TextValue.Substring(caretIndex);
+					}
 
-																				TextValue = textBeforeActualWord + textToInsert + textAfterActualWord;
-																				textBox.CaretIndex = caretIndex + textToInsert.Length - wordToReplaceLength + 1;
-																				e.Handled = true;
+					private void MoveDown(RoutedEventArgs e)
+					{
+										e.Handled = true;
+										if (this.DatePicker.Visibility == Visibility.Visible)
+										{
+															SelectedDate = SelectedDate == null ? DateTime.Now : ((DateTime)SelectedDate).AddDays(7);
+															return;
+										}
 
-															}
+										if (SelectedItem == null)
+										{
+															SelectedItem = SuggestionsList[0];
+										}
+										else
+										{
+															int actualSelectedItemIndex = SuggestionsList.IndexOf(SelectedItem.ToString());
+															SelectedItem = SuggestionsList[(actualSelectedItemIndex + 1) % SuggestionsList.Count];
+										}
+					}
+
+					private void MoveRight(RoutedEventArgs e)
+					{
+										e.Handled = true;
+										if (this.DatePicker.Visibility == Visibility.Visible)
+										{
+															SelectedDate = SelectedDate == null ? DateTime.Now : ((DateTime)SelectedDate).AddDays(1);
+															return;
+										}
+					}
+
+					private void MoveLeft(RoutedEventArgs e)
+					{
+										e.Handled = true;
+										if (this.DatePicker.Visibility == Visibility.Visible)
+										{
+															SelectedDate = SelectedDate == null ? DateTime.Now : ((DateTime)SelectedDate).AddDays(-1);
+															return;
+										}
+					}
+
+					private void SuggestionsListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+					{
+										ListViewItem? item = ItemsControl.ContainerFromElement(sender as ListView, e.OriginalSource as DependencyObject) as ListViewItem;
+										if (item != null)
+										{
+															ConfirmSelection(e);
 										}
 					}
 }

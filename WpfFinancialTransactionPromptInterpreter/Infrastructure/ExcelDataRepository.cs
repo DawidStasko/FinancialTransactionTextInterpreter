@@ -84,8 +84,8 @@ public class ExcelDataRepository : ICategoriesRepository, IAccountsRepository, I
 										}
 
 										using XLWorkbook workbook = new(_config.FinancialDataFullyQualifiedFileName);
-										IXLWorksheet worksheet = GetLastMothWorksheet(workbook);
-										IXLRow lastRow = worksheet.LastRowUsed();
+										IXLWorksheet? worksheet = GetLastMothWorksheet(workbook);
+										IXLRow? lastRow = worksheet?.LastRowUsed();
 
 										if (lastRow == null)
 										{
@@ -97,7 +97,7 @@ public class ExcelDataRepository : ICategoriesRepository, IAccountsRepository, I
 
 					}
 
-					private IXLWorksheet GetLastMothWorksheet(XLWorkbook workbook)
+					private IXLWorksheet? GetLastMothWorksheet(XLWorkbook workbook)
 					{
 										IXLWorksheets allWorksheet = workbook.Worksheets;
 										IList<DateOnly> worksheetNamesAsDates = [];
@@ -107,6 +107,11 @@ public class ExcelDataRepository : ICategoriesRepository, IAccountsRepository, I
 															{
 																				worksheetNamesAsDates.Add(DateOnly.FromDateTime(date));
 															}
+										}
+
+										if (worksheetNamesAsDates.Count == 0)
+										{
+															return null;
 										}
 
 										DateOnly lastDate = worksheetNamesAsDates.Max();

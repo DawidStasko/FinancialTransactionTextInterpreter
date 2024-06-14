@@ -12,11 +12,4 @@ public partial class PromptInput : UserControl
 					{
 										InitializeComponent();
 					}
-
-					private void txtInput_TextChanged(object sender, TextChangedEventArgs e)
-					{
-										//TextBox? textbox = sender as TextBox;
-										//if (textbox != null)
-										//					ActualWordAttachedProperty.SetActualWord(textbox, GetActualWord(textbox.Text, textbox.CaretIndex));
-					}
 }

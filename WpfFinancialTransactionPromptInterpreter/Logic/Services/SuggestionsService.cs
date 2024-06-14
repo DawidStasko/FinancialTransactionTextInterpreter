@@ -22,7 +22,8 @@ public class SuggestionsService : ISuggestionsService
 
 										switch (input[0])
 										{
-
+															case '&':
+																				return [_lastDateProvider.GetLastDate().ToString("dd-MM-yyyy")];
 															case '#':
 																				return _predefinedDataService.Categories.Where(c => c.ToLower().Contains(input.Substring(1).ToLower()));
 															case '$':
