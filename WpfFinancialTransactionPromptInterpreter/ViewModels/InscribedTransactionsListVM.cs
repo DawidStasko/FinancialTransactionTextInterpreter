@@ -16,6 +16,7 @@ public partial class InscribedTransactionsListVM : ObservableObject
 					private readonly ISnackbarService _snackbarService;
 
 					private ObservableCollection<InscribedTransaction> _inscribedTransactions = new();
+					private InscribedTransaction _selectedItem;
 
 					public ObservableCollection<InscribedTransaction> InscribedTransactions
 					{
@@ -23,6 +24,17 @@ public partial class InscribedTransactionsListVM : ObservableObject
 										set
 										{
 															_inscribedTransactions = value;
+															OnPropertyChanged();
+										}
+					}
+
+					public InscribedTransaction SelectedItem
+					{
+
+										get { return _selectedItem; }
+										set
+										{
+															_selectedItem = value;
 															OnPropertyChanged();
 										}
 					}
@@ -67,9 +79,9 @@ public partial class InscribedTransactionsListVM : ObservableObject
 					}
 
 					[RelayCommand]
-					private void Delete(InscribedTransaction selectedTransaction)
+					private void Delete()
 					{
-										InscribedTransactions.Remove(selectedTransaction);
+										InscribedTransactions.Remove(SelectedItem);
 					}
 
 					[RelayCommand]

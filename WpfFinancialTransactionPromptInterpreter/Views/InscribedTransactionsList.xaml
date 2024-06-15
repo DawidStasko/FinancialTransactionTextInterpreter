@@ -8,23 +8,23 @@
 													mc:Ignorable="d"
 													d:DesignHeight="450"
 													d:DesignWidth="800">
+					<UserControl.InputBindings>
+										<KeyBinding Key="Delete"
+																						Command="{Binding DeleteCommand}"/>
+					</UserControl.InputBindings>
 					<Grid>
 										<Grid.RowDefinitions>
 															<RowDefinition Height="5*" />
 															<RowDefinition Height="1*" />
 										</Grid.RowDefinitions>
-
-        <ui:ListView Name="ItemsList"
+										
+										<ui:ListView x:Name="ItemsList"
 																							Grid.Row="0"
 																							ItemsSource="{Binding InscribedTransactions}"
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-															<ListView.ItemContainerStyle>
-																				<Style TargetType="ListBoxItem">
-																									<Setter Property="HorizontalContentAlignment"
-																																	Value="Stretch" />
-																				</Style>
-															</ListView.ItemContainerStyle>
-
+																							SelectedItem="{Binding SelectedItem}"
+																							ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+																							SelectionMode="Single">
+															
 															<ListView.ItemTemplate>
 																				<DataTemplate>
 																									<Border Margin="0"
@@ -41,18 +41,16 @@
 																																			<TextBlock.ContextMenu>
 																																								<ContextMenu>
 																																													<MenuItem Header="Edit"
-																																																							Command="{Binding DataContext.EditCommand, Source={x:Reference ItemsList}}"
-																																																							CommandParameter="{Binding}" />
+																																																							Command="{Binding DataContext.EditCommand, Source={x:Reference ItemsList}}"/>
 																																													<MenuItem Header="Delete"
-																																																							Command="{Binding DataContext.DeleteCommand, Source={x:Reference ItemsList}}"
-																																																							CommandParameter="{Binding}" />
+																																																							Command="{Binding DataContext.DeleteCommand, Source={x:Reference ItemsList}}" />
 																																								</ContextMenu>
 																																			</TextBlock.ContextMenu>
 																														</TextBlock>
 																									</Border>
 																				</DataTemplate>
 															</ListView.ItemTemplate>
-        </ui:ListView>
+										</ui:ListView>
 
 										<Button Content="Save Transactions"
 																		HorizontalAlignment="Stretch"
