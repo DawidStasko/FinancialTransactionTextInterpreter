@@ -23,7 +23,7 @@ public class TransactionToXLSXSaver : ITransactionsRepository
 										IXLRow row = firstRow;
 										foreach (Item item in transaction.Items)
 										{
-															row.Cell(1).Value = transaction.Date;
+															row.Cell(1).Value = transaction.Date.ToString("dd-MM-yyyy");
 															row.Cell(2).Value = item.Name;
 															row.Cell(3).Value = item.Price;
 															row.Cell(4).Value = item.Category;
@@ -62,7 +62,7 @@ public class TransactionToXLSXSaver : ITransactionsRepository
 										workbook.Save();
 					}
 
-					private static string GetWorksheetName(DateTime date)
+					private static string GetWorksheetName(DateOnly date)
 					{
 										int month = date.Month;
 										int year = date.Year;

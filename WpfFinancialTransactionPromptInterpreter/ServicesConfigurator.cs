@@ -41,6 +41,7 @@ internal class ServicesConfigurator
 										serviceCollection.AddTransient<PromptInputVM>();
 
 										//Services
+										serviceCollection.AddScoped<ITransactionInterpreterService, TransactionInterpreterService>();
 										serviceCollection.AddScoped<ITransactionsSelectionService, TransactionsSelectionService>();
 										serviceCollection.AddScoped<ITransactionsTextProcessor, TransactionsTextProcessor>();
 										serviceCollection.AddScoped<IPredefinedDataService, PredefinedDataService>();
