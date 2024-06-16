@@ -51,6 +51,7 @@ public partial class InscribedTransactionsListVM : ObservableObject
 										{
 															InscribedTransactions.Insert(0, transaction);
 										};
+										_snackbarService = snackbarService;
 										InscribedTransactions = new ObservableCollection<InscribedTransaction>();
 
 #if DEBUG
@@ -67,7 +68,6 @@ public partial class InscribedTransactionsListVM : ObservableObject
 														new("&05-03-2024 $Account2 @Contractor1 #Entertainment Concert 50.00 Movie 12.00 Popcorn 5.00 Theater 30.00 Book 15.00 #Transportation Taxi 15.00 Gas 20.00 BusTicket 2.50 TrainTicket 3.00 BikeRepair 25.00 #Groceries Pasta 2.00 Sauce 1.50 Milk 2.99 Bread 1.49 Eggs 3.99 Cheese 4.99 !tag2")
 										};
 
-										_snackbarService = snackbarService;
 #endif
 					}
 
