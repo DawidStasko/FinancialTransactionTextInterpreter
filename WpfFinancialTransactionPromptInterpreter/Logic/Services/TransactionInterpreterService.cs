@@ -79,7 +79,7 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 																														break;
 																									}
 
-																									bool isPrice = decimal.TryParse(word, CultureInfo.InvariantCulture, out decimal price);
+																									bool isPrice = TryParseDecimal(word, out decimal price);
 																									if (isPrice)
 																									{
 																														Item item = new();
@@ -89,7 +89,7 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 																														for (int j = i + 1; j < transactionTextWords.Length; j++)
 																														{
 																																			string nextWord = transactionTextWords[j];
-																																			bool isNextWordPrice = decimal.TryParse(nextWord, out decimal nextPrice);
+																																			bool isNextWordPrice = TryParseDecimal(nextWord, out decimal nextPrice);
 																																			if (isNextWordPrice)
 																																			{
 																																								valuesAssignedToItem.Add(nextPrice);
@@ -106,13 +106,13 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 																									else
 																									{
 																														Item item = new();
-																														item.Name = actualCategory;
+																														item.Name = word;
 																														item.Category = actualCategory;
 																														List<decimal> valuesAssignedToItem = new();
 																														for (int j = i + 1; j < transactionTextWords.Length; j++)
 																														{
 																																			string nextWord = transactionTextWords[j];
-																																			bool isNextWordPrice = decimal.TryParse(nextWord, CultureInfo.InvariantCulture, out decimal nextPrice);
+																																			bool isNextWordPrice = TryParseDecimal(nextWord, out decimal nextPrice);
 																																			if (isNextWordPrice)
 																																			{
 																																								valuesAssignedToItem.Add(nextPrice);
@@ -140,6 +140,7 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 
 										return new Result<IList<Transaction>> { Value = [transaction] };
 					}
+
 
 					private Result<IList<Transaction>>? ProcessTransferTransactions(IList<string> transactionTextWords)
 					{
@@ -185,7 +186,7 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 																									tagsList.Add(word.Substring(1));
 																									break;
 																				default:
-																									bool isPrice = decimal.TryParse(word, CultureInfo.InvariantCulture, out decimal price);
+																									bool isPrice = TryParseDecimal(word, out decimal price);
 																									if (!isPrice)
 																									{
 																														errors.Add("Details names not allowed in transfer transaction.");
@@ -229,6 +230,12 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 										};
 
 										return new Result<IList<Transaction>> { Value = [outgoingTransaction, incomingTransaction] };
+					}
+
+					private bool TryParseDecimal(string value, out decimal result)
+					{
+										string normalizedValue = value.Replace(",", ".");
+										return decimal.TryParse(normalizedValue, CultureInfo.InvariantCulture, out result);
 					}
 
 					private enum TransactionType
