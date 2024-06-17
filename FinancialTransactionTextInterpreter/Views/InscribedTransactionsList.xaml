@@ -41,7 +41,8 @@
 																																			<TextBlock.ContextMenu>
 																																								<ContextMenu>
 																																													<MenuItem Header="Edit"
-																																																							Command="{Binding DataContext.EditCommand, Source={x:Reference ItemsList}}"/>
+																																																							Command="{Binding DataContext.EditCommand, Source={x:Reference ItemsList}}"
+																																																							CommandParameter="{Binding}"/>
 																																													<MenuItem Header="Delete"
 																																																							Command="{Binding DataContext.DeleteCommand, Source={x:Reference ItemsList}}" />
 																																								</ContextMenu>

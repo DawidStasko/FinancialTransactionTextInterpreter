@@ -3,9 +3,10 @@ using CommunityToolkit.Mvvm.Input;
 using FinancialTransactionTextInterpreter.Logic.Interfaces;
 using FinancialTransactionTextInterpreter.Logic.Services.Interfaces;
 using FinancialTransactionTextInterpreter.Model;
+using Microsoft.Extensions.Logging;
 using System.Collections.ObjectModel;
 using Wpf.Ui;
-
+using Wpf.Ui.Controls;
 namespace WpfFinancialTransactionPromptInterpreter.ViewModels;
 
 public partial class InscribedTransactionsListVM : ObservableObject
@@ -14,6 +15,7 @@ public partial class InscribedTransactionsListVM : ObservableObject
 					private readonly ITransactionsSelectionService? _selectionService;
 					private readonly ITransactionsTextProcessor? _transactionsTextProcessor;
 					private readonly ISnackbarService _snackbarService;
+					private readonly ILogger<InscribedTransactionsListVM> _logger;
 
 					private ObservableCollection<InscribedTransaction> _inscribedTransactions = new();
 					private InscribedTransaction _selectedItem;
@@ -42,7 +44,8 @@ public partial class InscribedTransactionsListVM : ObservableObject
 					public InscribedTransactionsListVM(ITransactionsSelectionService selectionService,
 										ITransactionsTextProcessor? transactionsTextProcessor,
 										INewTransactionCreatedService newTransactionCreatedService,
-										ISnackbarService snackbarService)
+										ISnackbarService snackbarService,
+										ILogger<InscribedTransactionsListVM> logger)
 					{
 										_selectionService = selectionService;
 										_transactionsTextProcessor = transactionsTextProcessor;
@@ -52,6 +55,8 @@ public partial class InscribedTransactionsListVM : ObservableObject
 															InscribedTransactions.Insert(0, transaction);
 										};
 										_snackbarService = snackbarService;
+										_logger = logger;
+
 										InscribedTransactions = new ObservableCollection<InscribedTransaction>();
 
 #if DEBUG
@@ -80,8 +85,21 @@ public partial class InscribedTransactionsListVM : ObservableObject
 					[RelayCommand]
 					private void ProcessTransactions()
 					{
+
 										(IList<InscribedTransaction> successfullyProcessed, IList<InscribedTransaction> unsuccessfullyProcessed)? processingResult = _transactionsTextProcessor?.ProcessMultipleTransactions(InscribedTransactions);
-										_snackbarService.Show("Transactions saved", $"Successfully processed {processingResult?.successfullyProcessed.Count ?? 0} out of {InscribedTransactions.Count}.", Wpf.Ui.Controls.ControlAppearance.Primary, null, TimeSpan.FromSeconds(20));
-										InscribedTransactions = new ObservableCollection<InscribedTransaction>(processingResult?.unsuccessfullyProcessed ?? []);
+										if (!processingResult.HasValue)
+										{
+															_snackbarService.Show("Error occurred", "Error: Null in processingResult.", ControlAppearance.Danger, null, TimeSpan.FromSeconds(20));
+															_logger.LogError("Error: Null in processingResult.");
+															return;
+										}
+										if (processingResult.Value.unsuccessfullyProcessed.Count != 0)
+										{
+															_snackbarService.Show("Processing failed", $"App was not able to process {processingResult?.unsuccessfullyProcessed.Count} transactions.", ControlAppearance.Danger, null, TimeSpan.FromSeconds(20));
+															InscribedTransactions = new ObservableCollection<InscribedTransaction>(processingResult!.Value.unsuccessfullyProcessed);
+															return;
+										}
+										_snackbarService.Show("Transactions saved", $"Successfully processed {processingResult?.successfullyProcessed.Count} out of {InscribedTransactions.Count}.", ControlAppearance.Primary, null, TimeSpan.FromSeconds(20));
+										InscribedTransactions.Clear();
 					}
 }
