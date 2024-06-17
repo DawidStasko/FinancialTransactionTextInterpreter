@@ -18,21 +18,6 @@ public partial class MainWindow : FluentWindow
 										snackbarService.SetSnackbarPresenter(SnackbarPresenter);
 					}
 
-					private void CheckAllFiles()
-					{
-										//MainWindowVM mainWindowVM = (MainWindowVM)DataContext;
-										//FileCheckResult result = mainWindowVM.CheckAllFiles();
-										//if (FileCheckResult.HasErrors)
-										//{
-
-										//					MessageBox.Show("There are errors in the files. Please check the logs.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-										//}
-										//else
-										//{
-										//					MessageBox.Show("All files are correct.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-										//}
-					}
-
 					private void OpenFileDialog(object sender, RoutedEventArgs e)
 					{
 										OpenFileDialog fileDialog = new();
@@ -44,10 +29,5 @@ public partial class MainWindow : FluentWindow
 															MainWindowVM mainWindowVM = (MainWindowVM)DataContext;
 															mainWindowVM.SetNewFileName(fileDialog.FileName);
 										}
-					}
-
-					private void OpenExcelFile(object sender, RoutedEventArgs e)
-					{
-
 					}
 }
