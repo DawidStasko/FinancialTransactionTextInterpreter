@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34804.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfFinancialTransactionPromptInterpreter", "WpfFinancialTransactionPromptInterpreter\WpfFinancialTransactionPromptInterpreter.csproj", "{85363667-9091-41BE-95DD-2D1E24245426}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialTransactionTextInterpreter", "FinancialTransactionTextInterpreter\FinancialTransactionTextInterpreter.csproj", "{85363667-9091-41BE-95DD-2D1E24245426}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

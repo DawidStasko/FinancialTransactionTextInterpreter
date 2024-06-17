@@ -5,8 +5,8 @@ on:
     branches: [ "master" ]
     
 env:
-  ProjectPath: WpfFinancialTransactionPromptInterpreter
-  ProjectName: WpfFinancialTransactionPromptInterpreter.csproj
+  ProjectPath: FinancialTransactionTextInterpreter
+  ProjectName: FinancialTransactionTextInterpreter.csproj
 
 jobs:  
   job:
@@ -33,13 +33,13 @@ jobs:
         $time = Get-Date -Format "yyyy-MM-dd_HH-mm" 
         Write-Host "Current time: $time"
         $compress = @{
-          Path = "WpfFinancialTransactionPromptInterpreter/FinancialData.xlsx", "WpfFinancialTransactionPromptInterpreter/bin/Publish/WpfFinancialTransactionPromptInterpreter.exe"
+          Path = "FinancialTransactionTextInterpreter/FinancialData.xlsx", "FinancialTransactionTextInterpreter/bin/Publish/FinancialTransactionTextInterpreter.exe"
           CompressionLevel = "Fastest"
-          DestinationPath = "WpfFinancialTransactionPromptInterpreter/bin/Publish/AppWithExcelTemplate.zip"
+          DestinationPath = "FinancialTransactionTextInterpreter/bin/Publish/AppWithExcelTemplate.zip"
         }
         Compress-Archive @compress
         Write-Host "Files Compressed successfully."
-        $filesToInclude = @('WpfFinancialTransactionPromptInterpreter/bin/Publish/WpfFinancialTransactionPromptInterpreter.exe' , 'WpfFinancialTransactionPromptInterpreter/bin/Publish/AppWithExcelTemplate.zip')
+        $filesToInclude = @('FinancialTransactionTextInterpreter/bin/Publish/FinancialTransactionTextInterpreter.exe' , 'FinancialTransactionTextInterpreter/bin/Publish/AppWithExcelTemplate.zip')
         gh release create $time $filesToInclude
         Write-Host "Release created successfully."
 
