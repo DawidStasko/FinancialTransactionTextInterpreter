@@ -17,6 +17,8 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 					/// 
 					/// In case of transfer &dateOfTransaction $SourceAccount > $TargetAccount price1 price2
 					/// This will generate two transactions with opposite signs.
+					/// 
+					/// By default all numbers are treated as negative. Positive must be declared explicitly by +sign. If you want to use number as name of item, you need to put it in quotes.
 					/// </summary>
 					/// <param name="text"></param>
 					public Result<IList<Transaction>> ProcessTransactionText(InscribedTransaction transactionText)
@@ -109,15 +111,26 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 
 					private decimal CalculatePrice(string[] transactionTextWords, ref int actualIndex)
 					{
-										if (!TryParseDecimal(transactionTextWords[actualIndex], out decimal totalPrice))
-															return decimal.Zero;
+										decimal totalPrice = decimal.Zero;
 										for (; actualIndex < transactionTextWords.Length; actualIndex++)
 										{
-															bool isPrice = TryParseDecimal(transactionTextWords[actualIndex + 1], out decimal partialPrice);
+															bool isPrice = TryParseDecimal(transactionTextWords[actualIndex], out decimal partialPrice);
 															if (isPrice)
-																				totalPrice += partialPrice;
+															{
+																				if (transactionTextWords[actualIndex][0] == '+')
+																				{
+																									totalPrice += partialPrice;
+																				}
+																				else
+																				{
+																									totalPrice += (-Math.Abs(partialPrice));
+																				}
+															}
 															else
+															{
+																				actualIndex--;
 																				break;
+															}
 										}
 										return totalPrice;
 					}
