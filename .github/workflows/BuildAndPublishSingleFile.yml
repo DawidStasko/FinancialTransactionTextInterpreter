@@ -32,7 +32,6 @@ jobs:
       run: |
         $time = Get-Date -Format "yyyy-MM-dd_HH-mm" 
         Write-Host "Current time: $time"
-        Get-ChildItem -Path FinancialTransactionTextInterpreter\Properties\PublishProfiles\
         $compress = @{
           Path = "FinancialTransactionTextInterpreter/FinancialData.xlsx", "FinancialTransactionTextInterpreter/bin/Publish/FinancialTransactionTextInterpreter.exe"
           CompressionLevel = "Fastest"
