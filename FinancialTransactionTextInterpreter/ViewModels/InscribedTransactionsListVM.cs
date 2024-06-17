@@ -58,7 +58,8 @@ public partial class InscribedTransactionsListVM : ObservableObject
 										InscribedTransactions = new ObservableCollection<InscribedTransaction>()
 										{
 														new($"&{DateTime.Now.AddDays(-2).ToString("dd-MM-yyyy")} $PKO #Jedzenie ToPowinnoMiecWartoscMinus11 -6 -5 TenutajMinus8 -8 #Transport Paliwo -302,02 @StacjaDokowania"),
-														new($"&{DateTime.Now.AddDays(-1).ToString("dd-MM-yyyy")} $PKO > $Santander 30 40,1"),
+
+															new($"&{DateTime.Now.AddDays(-1).ToString("dd-MM-yyyy")} $PKO > $Santander 30 40,1"),
 										};
 #endif
 					}
