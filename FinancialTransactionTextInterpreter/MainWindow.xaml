@@ -27,10 +27,15 @@
 																												Grid.Row="0" />
 															<Menu Grid.Row="1">
 																				<ui:MenuItem Icon="{ui:SymbolIcon DocumentData32}"
-																																	Click="OpenFileDialog" />
+																																	Click="OpenFileDialog" 
+																																	ToolTip="Select financial data xlsx file."/>
 																				<ui:MenuItem Icon="{ui:SymbolIcon BookQuestionMarkRtl24}"
 																																	IsCheckable="True"
-																																	IsChecked="{Binding IsHelpBoxVisible}" />
+																																	IsChecked="{Binding IsHelpBoxVisible}" 
+																																	ToolTip="Open help."/>
+																				<ui:MenuItem Icon="{ui:SymbolIcon Open32}" 
+																																	Click="OpenExcelFile"
+																																	ToolTip="Open xlsx file with financial data."/>
 
 															</Menu>
 															<customControls:PromptInput x:Name="TextInputControl"

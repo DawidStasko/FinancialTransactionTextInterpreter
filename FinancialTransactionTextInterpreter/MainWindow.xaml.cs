@@ -1,5 +1,6 @@
 ﻿using FinancialTransactionTextInterpreter.ViewModels;
 using Microsoft.Win32;
+using System.Diagnostics;
 using System.Windows;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
@@ -29,5 +30,27 @@ public partial class MainWindow : FluentWindow
 															MainWindowVM mainWindowVM = (MainWindowVM)DataContext;
 															mainWindowVM.SetNewFileName(fileDialog.FileName);
 										}
+					}
+
+					private void OpenExcelFile(object sender, RoutedEventArgs e)
+					{
+										string filePath = ((MainWindowVM)DataContext).GetFilePath();
+										if (string.IsNullOrEmpty(filePath))
+										{
+															return;
+										}
+
+										Process excelFile = new()
+										{
+															StartInfo = new ProcessStartInfo()
+															{
+																				FileName = "powershell.exe",
+																				Arguments = $"-Command \"& {{Start-Process {filePath} }}\"",
+																				UseShellExecute = true
+															}
+										};
+
+										excelFile.Start();
+
 					}
 }

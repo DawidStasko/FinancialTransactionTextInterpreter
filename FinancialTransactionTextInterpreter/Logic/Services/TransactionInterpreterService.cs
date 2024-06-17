@@ -1,6 +1,7 @@
 ﻿using FinancialTransactionTextInterpreter.Logic.Services.Interfaces;
 using FinancialTransactionTextInterpreter.Model;
 using System.Globalization;
+using System.Text;
 
 namespace FinancialTransactionTextInterpreter.Logic.Services;
 
@@ -20,7 +21,7 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 					/// <param name="text"></param>
 					public Result<IList<Transaction>> ProcessTransactionText(InscribedTransaction transactionText)
 					{
-
+										string normalizedText = transactionText.Text?.Replace("  ", " ") ?? "";
 										string[] transactionTextWords = transactionText.Text?.Split(' ') ?? [];
 
 										if (transactionTextWords.Length == 0)
@@ -79,54 +80,21 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 																														break;
 																									}
 
-																									bool isPrice = TryParseDecimal(word, out decimal price);
+																									bool isPrice = TryParseDecimal(word, out _);
 																									if (isPrice)
 																									{
 																														Item item = new();
 																														item.Name = actualCategory;
+																														item.Price = CalculatePrice(transactionTextWords, ref i);
 																														item.Category = actualCategory;
-																														List<decimal> valuesAssignedToItem = new() { price };
-																														for (int j = i + 1; j < transactionTextWords.Length; j++)
-																														{
-																																			string nextWord = transactionTextWords[j];
-																																			bool isNextWordPrice = TryParseDecimal(nextWord, out decimal nextPrice);
-																																			if (isNextWordPrice)
-																																			{
-																																								valuesAssignedToItem.Add(nextPrice);
-																																								i++;
-																																			}
-																																			else
-																																			{
-																																								break;
-																																			}
-																														}
-																														item.Price = valuesAssignedToItem.Sum();
 																														transaction.Items.Add(item);
 																									}
 																									else
 																									{
 																														Item item = new();
-																														item.Name = word;
+																														item.Name = BuildName(transactionTextWords, ref i);
+																														item.Price = CalculatePrice(transactionTextWords, ref i);
 																														item.Category = actualCategory;
-																														List<decimal> valuesAssignedToItem = new();
-																														for (int j = i + 1; j < transactionTextWords.Length; j++)
-																														{
-																																			string nextWord = transactionTextWords[j];
-																																			bool isNextWordPrice = TryParseDecimal(nextWord, out decimal nextPrice);
-																																			if (isNextWordPrice)
-																																			{
-																																								valuesAssignedToItem.Add(nextPrice);
-																																								i++;
-																																			}
-																																			else
-																																			{
-																																								break;
-																																			}
-																														}
-
-																														if (valuesAssignedToItem.Count == 0)
-																																			errors.Add("Item without price is not allowed.");
-																														item.Price = valuesAssignedToItem.Sum();
 																														transaction.Items.Add(item);
 																									}
 																									break;
@@ -139,6 +107,35 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 										return new Result<IList<Transaction>> { Value = [transaction] };
 					}
 
+					private decimal CalculatePrice(string[] transactionTextWords, ref int actualIndex)
+					{
+										if (!TryParseDecimal(transactionTextWords[actualIndex], out decimal totalPrice))
+															return decimal.Zero;
+										for (; actualIndex < transactionTextWords.Length; actualIndex++)
+										{
+															bool isPrice = TryParseDecimal(transactionTextWords[actualIndex + 1], out decimal partialPrice);
+															if (isPrice)
+																				totalPrice += partialPrice;
+															else
+																				break;
+										}
+										return totalPrice;
+					}
+
+					private string BuildName(IList<string> transactionTextWords, ref int actualIndex)
+					{
+										StringBuilder stringBuilder = new();
+
+										for (; actualIndex < transactionTextWords.Count; actualIndex++)
+										{
+															bool isPrice = TryParseDecimal(transactionTextWords[actualIndex], out _);
+															if (!isPrice)
+																				stringBuilder.Append(transactionTextWords[actualIndex] + " ");
+															else
+																				break;
+										}
+										return stringBuilder.ToString();
+					}
 
 					private Result<IList<Transaction>>? ProcessTransferTransactions(IList<string> transactionTextWords)
 					{

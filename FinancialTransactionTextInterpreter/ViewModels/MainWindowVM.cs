@@ -13,10 +13,10 @@ public partial class MainWindowVM : ObservableObject
 					private readonly ISnackbarService _snackbarService;
 
 					[ObservableProperty]
-					private bool _isHelpBoxVisible = false;
+					private bool _isHelpBoxVisible = true;
 
 					[ObservableProperty]
-					private Visibility _helpBoxVisibility = Visibility.Hidden;
+					private Visibility _helpBoxVisibility = Visibility.Visible;
 
 					[ObservableProperty]
 					private Visibility _inscribedTransactionsListVisibility = Visibility.Hidden;
@@ -47,4 +47,5 @@ public partial class MainWindowVM : ObservableObject
 					}
 
 					internal void SetNewFileName(string fileName) => _config.FinancialDataFullyQualifiedFileName = fileName;
+					internal string GetFilePath() => _config.FinancialDataFullyQualifiedFileName;
 }
