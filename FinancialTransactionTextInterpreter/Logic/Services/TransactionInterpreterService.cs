@@ -23,8 +23,8 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 					/// <param name="text"></param>
 					public Result<IList<Transaction>> ProcessTransactionText(InscribedTransaction transactionText)
 					{
-										string normalizedText = transactionText.Text?.Replace("  ", " ") ?? "";
-										string[] transactionTextWords = transactionText.Text?.Split(' ') ?? [];
+
+										string[] transactionTextWords = transactionText.Text?.Split(' ', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries) ?? [];
 
 										if (transactionTextWords.Length == 0)
 															return new Result<IList<Transaction>>() { ErrorMessages = ["Transaction text is empty"] };
