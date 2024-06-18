@@ -193,35 +193,47 @@ public partial class CustomTextBox : UserControl
 					private void ConfirmSelection(RoutedEventArgs e)
 					{
 										e.Handled = true;
-										int caretIndex = TextInput.CaretIndex;
-										int wordToReplaceLength = ActualWord.Length;
 
+										(string newText, int newIndex)? result = null;
 										if (SelectedDate != null)
 										{
-															string date = DateOnly.FromDateTime((DateTime)SelectedDate).ToString("dd-MM-yyyy");
-															string textToInsert = ActualWord[0] + date + " ";
-															string textBeforeActualWord = TextValue.Substring(0, caretIndex - wordToReplaceLength);
-															string textAfterActualWord = TextValue.Substring(caretIndex);
-
-															TextValue = textBeforeActualWord + textToInsert + textAfterActualWord;
-															TextInput.CaretIndex = caretIndex + textToInsert.Length - wordToReplaceLength + 1;
-															SelectedDate = null;
-															return;
+															result = ReplaceActualWordWithSuggestionAndCalculateNewIndex(SelectedDate!.Value.ToString("dd-MM-yyyy"));
 										}
 
-
-										if (SelectedItem != null)
+										if (SelectedItem != null && result == null)
 										{
-															string textToInsert = ActualWord[0] + SelectedItem.ToString() + " ";
-															string textBeforeActualWord = TextValue.Substring(0, caretIndex - wordToReplaceLength);
-															string textAfterActualWord = TextValue.Substring(caretIndex);
-
-															TextValue = textBeforeActualWord + textToInsert + textAfterActualWord;
-															TextInput.CaretIndex = caretIndex + textToInsert.Length - wordToReplaceLength + 1;
-															SelectedItem = null;
+															result = ReplaceActualWordWithSuggestionAndCalculateNewIndex(SelectedItem!);
 										}
+
+										if (SelectedItem == null && SuggestionsList != null && SuggestionsList.Count > 0)
+										{
+															result = ReplaceActualWordWithSuggestionAndCalculateNewIndex(SuggestionsList[0]);
+										}
+
+										if (result.HasValue)
+										{
+															TextValue = result.Value.newText;
+															TextInput.CaretIndex = result.Value.newIndex;
+										}
+
+										SelectedDate = null;
+										SelectedItem = null;
+										return;
+					}
+
+					private (string newText, int newIndex) ReplaceActualWordWithSuggestionAndCalculateNewIndex(string textToInsert)
+					{
+										int caretIndex = TextInput.CaretIndex;
+										int wordToReplaceLength = ActualWord.Length;
+										string textBeforeActualWord = TextValue.Substring(0, caretIndex - wordToReplaceLength);
+										string textAfterActualWord = TextValue.Substring(caretIndex);
+
+										string newText = $"{textBeforeActualWord}{ActualWord[0]}{textToInsert} {textAfterActualWord}";
+										int newIndex = caretIndex + textToInsert.Length - wordToReplaceLength + 3;
+										return (newText, newIndex);
 
 					}
+
 
 					private void MoveUp(RoutedEventArgs e)
 					{
