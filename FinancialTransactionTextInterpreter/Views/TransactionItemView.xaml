@@ -17,7 +17,6 @@
 																							Value="Center" />
 										</Style>
 					</UserControl.Resources>
-
 					<Grid>
 										<Grid Visibility="{Binding HasErrors, Converter={x:Static converters:BoolToVisibilityConverter.FalseToCollapsed}, Mode=OneWay}">
 															<Grid.ColumnDefinitions>

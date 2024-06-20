@@ -4,5 +4,5 @@ namespace FinancialTransactionTextInterpreter.Logic.ExternalInterfaces;
 
 public interface ITransactionsRepository
 {
-					public void Save(Transaction transaction);
+					public Result<Transaction> Save(Transaction transaction);
 }

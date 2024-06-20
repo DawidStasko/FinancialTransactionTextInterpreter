@@ -1,7 +1,5 @@
 ﻿using FinancialTransactionTextInterpreter.Infrastructure;
-using FinancialTransactionTextInterpreter.Logic;
 using FinancialTransactionTextInterpreter.Logic.ExternalInterfaces;
-using FinancialTransactionTextInterpreter.Logic.Interfaces;
 using FinancialTransactionTextInterpreter.Logic.Services;
 using FinancialTransactionTextInterpreter.Logic.Services.Interfaces;
 using FinancialTransactionTextInterpreter.Model.Interfaces;
@@ -44,11 +42,11 @@ internal class ServicesConfigurator
 										//Services
 										serviceCollection.AddScoped<ITransactionInterpreterService, TransactionInterpreterService>();
 										serviceCollection.AddScoped<ITransactionsSelectionService, TransactionsSelectionService>();
-										serviceCollection.AddScoped<ITransactionsTextProcessor, TransactionsTextProcessor>();
 										serviceCollection.AddScoped<IPredefinedDataService, PredefinedDataService>();
 										serviceCollection.AddScoped<INewTransactionCreatedService, NewTransactionCreatedService>();
 										serviceCollection.AddScoped<ISuggestionsService, SuggestionsService>();
 										serviceCollection.AddSingleton<ISnackbarService, SnackbarService>();
+										serviceCollection.AddScoped<ITransactionSaverService, TransactionSaverService>();
 
 										//Infrastructure
 										serviceCollection.AddSingleton<IConfig, UserConfiguration>();

@@ -35,17 +35,21 @@
 																																	BorderThickness="1"
 																																	CornerRadius="8"
 																																	SnapsToDevicePixels="True">
-																														<local:TransactionItemView DataContext="{Binding}" Padding="5">
-																																			<ContextMenu>
-																																								<MenuItem Header="Edit"
-																																																		Command="{Binding DataContext.EditCommand, Source={x:Reference ItemsList}}"
-																																																		CommandParameter="{Binding}" />
-																																								<MenuItem Header="Delete"
-																																																		Command="{Binding DataContext.DeleteCommand, Source={x:Reference ItemsList}}" />
-																																			</ContextMenu>
+																														<local:TransactionItemView DataContext="{Binding}"
+																																																									Padding="5">
+																																			<local:TransactionItemView.ContextMenu>
+																																								<ContextMenu>
+																																													<MenuItem Header="Edit"
+																																																							Command="{Binding DataContext.EditCommand, Source={x:Reference ItemsList}}"
+																																																							CommandParameter="{Binding}" />
+																																													<MenuItem Header="Delete"
+																																																							Command="{Binding DataContext.DeleteCommand, Source={x:Reference ItemsList}}" />
+																																								</ContextMenu>
+																																			</local:TransactionItemView.ContextMenu>
 																														</local:TransactionItemView>
 																									</Border>
 																				</DataTemplate>
+																				
 															</ListView.ItemTemplate>
 										</ui:ListView>
 
