@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FinancialTransactionTextInterpreter.Views.InscribedTransactionsList"
+﻿<UserControl x:Class="FinancialTransactionTextInterpreter.Views.TransactionsListView"
 													xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 													xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 													xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -35,19 +35,15 @@
 																																	BorderThickness="1"
 																																	CornerRadius="8"
 																																	SnapsToDevicePixels="True">
-																														<TextBlock Text="{Binding Text}"
-																																									TextWrapping="Wrap"
-																																									Padding="5">
-																																			<TextBlock.ContextMenu>
-																																								<ContextMenu>
-																																													<MenuItem Header="Edit"
-																																																							Command="{Binding DataContext.EditCommand, Source={x:Reference ItemsList}}"
-																																																							CommandParameter="{Binding}" />
-																																													<MenuItem Header="Delete"
-																																																							Command="{Binding DataContext.DeleteCommand, Source={x:Reference ItemsList}}" />
-																																								</ContextMenu>
-																																			</TextBlock.ContextMenu>
-																														</TextBlock>
+																														<local:TransactionItemView DataContext="{Binding}" Padding="5">
+																																			<ContextMenu>
+																																								<MenuItem Header="Edit"
+																																																		Command="{Binding DataContext.EditCommand, Source={x:Reference ItemsList}}"
+																																																		CommandParameter="{Binding}" />
+																																								<MenuItem Header="Delete"
+																																																		Command="{Binding DataContext.DeleteCommand, Source={x:Reference ItemsList}}" />
+																																			</ContextMenu>
+																														</local:TransactionItemView>
 																									</Border>
 																				</DataTemplate>
 															</ListView.ItemTemplate>

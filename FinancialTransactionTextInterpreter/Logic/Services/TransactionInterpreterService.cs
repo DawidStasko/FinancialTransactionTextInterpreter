@@ -7,20 +7,6 @@ namespace FinancialTransactionTextInterpreter.Logic.Services;
 
 public class TransactionInterpreterService : ITransactionInterpreterService
 {
-					/// <summary>
-					/// TODO: This comment should be in popup button in top ribbon;
-					/// This text should have this format: 
-					/// &dateOfTransaction $Account @contractor #category1 item1 price item2 price #category2 item3 price !tag item4 price 
-					/// where ! @ # $ & are information about data stored in this string. All items after category belongs only to this category. Remember to care about signs: spend money
-					/// use - before price, earn money use + before price.
-					/// Tags should be assigned to first following item.
-					/// 
-					/// In case of transfer &dateOfTransaction $SourceAccount > $TargetAccount price1 price2
-					/// This will generate two transactions with opposite signs.
-					/// 
-					/// By default all numbers are treated as negative. Positive must be declared explicitly by +sign. If you want to use number as name of item, you need to put it in quotes.
-					/// </summary>
-					/// <param name="text"></param>
 					public Result<IList<Transaction>> ProcessTransactionText(InscribedTransaction transactionText)
 					{
 
@@ -79,7 +65,7 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 																									if (string.IsNullOrEmpty(actualCategory))
 																									{
 																														errors.Add("Items need to have category written before them.");
-																														break;
+																														actualCategory = "MissingCategory";
 																									}
 
 																									bool isPrice = TryParseDecimal(word, out _);

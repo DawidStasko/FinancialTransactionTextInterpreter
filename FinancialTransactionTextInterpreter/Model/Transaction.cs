@@ -6,4 +6,5 @@ public class Transaction
 					public DateOnly Date { get; set; }
 					public string? Contractor { get; set; }
 					public IList<Item> Items { get; set; } = [];
+					public decimal TotalPrice => Items.Sum(x => x.Price ?? 0);
 }

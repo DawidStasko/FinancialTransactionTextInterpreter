@@ -11,6 +11,7 @@ public partial class PromptInputVM : ObservableObject
 {
 					private readonly ITransactionsSelectionService _selectionService;
 					private readonly INewTransactionCreatedService _newTransactionCreatedService;
+					private readonly ITransactionInterpreterService _transactionInterpreterService;
 					private readonly ISuggestionsService _suggestionsService;
 					private readonly ILogger<PromptInputVM> _logger;
 					private bool _showSuggestions;
@@ -51,7 +52,8 @@ public partial class PromptInputVM : ObservableObject
 					public PromptInputVM(ITransactionsSelectionService selectionService,
 									INewTransactionCreatedService newTransactionCreatedService,
 									ISuggestionsService suggestionsService,
-									ILogger<PromptInputVM> logger)
+									ILogger<PromptInputVM> logger,
+									ITransactionInterpreterService transactionInterpreterService)
 					{
 										_selectionService = selectionService;
 										_selectionService.SelectionChanged += (s, e) =>
@@ -76,6 +78,7 @@ public partial class PromptInputVM : ObservableObject
 
 										_suggestionsService = suggestionsService;
 										_logger = logger;
+										_transactionInterpreterService = transactionInterpreterService;
 					}
 
 					[RelayCommand]
@@ -85,11 +88,14 @@ public partial class PromptInputVM : ObservableObject
 										{
 															InscribedTransaction transaction = new(_textInput);
 															_logger.LogInformation($"Creating new transaction {transaction.Id}");
-															_newTransactionCreatedService.InformAboutNewTransaction(new InscribedTransaction(_textInput));
+															transaction.ProcessingResult = _transactionInterpreterService.ProcessTransactionText(transaction);
+															_newTransactionCreatedService.InformAboutNewTransaction(transaction);
+
 										}
 										else
 										{
 															_selectionService.SelectedTransaction.Text = _textInput;
+															_selectionService.SelectedTransaction.ProcessingResult = _transactionInterpreterService.ProcessTransactionText(_selectionService.SelectedTransaction);
 										}
 
 										ClearText();

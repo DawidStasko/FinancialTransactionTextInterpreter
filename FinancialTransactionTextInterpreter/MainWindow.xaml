@@ -10,8 +10,8 @@
 																	xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
 																	mc:Ignorable="d"
 																	Title="Financial Transaction Interpreter"
-																	Height="450"
-																	Width="800">
+																	WindowState="Maximized"
+																		WindowStyle="None">
 					<Window.Resources>
 										<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 					</Window.Resources>
@@ -41,7 +41,7 @@
 															<customControls:PromptInput x:Name="TextInputControl"
 																																											Grid.Row="2"
 																																											DataContext="{Binding PromptInputVM}" />
-															<customControls:InscribedTransactionsList x:Name="MainWindow_TransactionsList"
+															<customControls:TransactionsListView x:Name="MainWindow_TransactionsList"
 																																																									Grid.Row="3"
 																																																									DataContext="{Binding InscribedTransactionsListVM}"
 																																																									Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor,

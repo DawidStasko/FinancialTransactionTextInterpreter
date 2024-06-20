@@ -10,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Events;
 using Wpf.Ui;
-using WpfFinancialTransactionPromptInterpreter;
 using WpfFinancialTransactionPromptInterpreter.ViewModels;
 
 namespace FinancialTransactionTextInterpreter;
@@ -36,11 +35,11 @@ internal class ServicesConfigurator
 										//Views
 										serviceCollection.AddTransient<MainWindow>();
 
-
 										//ViewModels
 										serviceCollection.AddTransient<MainWindowVM>();
 										serviceCollection.AddTransient<InscribedTransactionsListVM>();
 										serviceCollection.AddTransient<PromptInputVM>();
+										serviceCollection.AddTransient<HelpBoxVM>();
 
 										//Services
 										serviceCollection.AddScoped<ITransactionInterpreterService, TransactionInterpreterService>();

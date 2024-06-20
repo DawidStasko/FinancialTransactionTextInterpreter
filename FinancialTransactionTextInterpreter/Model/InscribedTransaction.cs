@@ -2,23 +2,23 @@
 
 namespace FinancialTransactionTextInterpreter.Model;
 
-public class InscribedTransaction : ObservableObject
+public partial class InscribedTransaction : ObservableObject
 {
-					private Guid _id = Guid.NewGuid();
-					public Guid Id => _id;
-					private string? _text;
-					public string? Text
-					{
-										get => _text;
-										set
-										{
-															_text = value;
-															OnPropertyChanged();
-										}
-					}
+					public Guid Id { get; private set; }
+
+					[ObservableProperty]
+					[NotifyPropertyChangedFor(nameof(HasErrors))]
+					private Result<IList<Transaction>> _processingResult;
+
+					[ObservableProperty]
+					private string _text = "";
+
+					public bool HasErrors => (!ProcessingResult?.IsSuccess) ?? true;
 
 					public InscribedTransaction(string text)
 					{
+										Id = Guid.NewGuid();
+										ProcessingResult = new Result<IList<Transaction>>() { ErrorMessages = new List<string>() { "Processing was not done yet." } };
 										Text = text;
 					}
 }

@@ -16,18 +16,20 @@ public partial class MainWindowVM : ObservableObject
 					private bool _isHelpBoxVisible = true;
 
 					[ObservableProperty]
-					private Visibility _helpBoxVisibility = Visibility.Visible;
+					private Visibility _helpBoxVisibility = Visibility.Hidden;
 
 					[ObservableProperty]
-					private Visibility _inscribedTransactionsListVisibility = Visibility.Hidden;
+					private Visibility _inscribedTransactionsListVisibility = Visibility.Visible;
 
 					public PromptInputVM PromptInputVM { get; }
 					public InscribedTransactionsListVM InscribedTransactionsListVM { get; }
+					public HelpBoxVM HelpBoxVM { get; }
 
-					public MainWindowVM(PromptInputVM promptInputVM, InscribedTransactionsListVM inscribedTransactionsListVM, IConfig config, ISnackbarService snackbarService)
+					public MainWindowVM(PromptInputVM promptInputVM, InscribedTransactionsListVM inscribedTransactionsListVM, IConfig config, ISnackbarService snackbarService, HelpBoxVM helpBoxVM)
 					{
 										PromptInputVM = promptInputVM;
 										InscribedTransactionsListVM = inscribedTransactionsListVM;
+										HelpBoxVM = helpBoxVM;
 										_config = config;
 										_snackbarService = snackbarService;
 					}

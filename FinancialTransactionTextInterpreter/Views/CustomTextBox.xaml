@@ -10,10 +10,6 @@
 													d:DesignWidth="800"
 													x:Name="userControl">
 					<Grid>
-										<Grid.InputBindings>
-															<MouseBinding MouseAction="" />
-
-										</Grid.InputBindings>
 										<ui:TextBox x:Name="TextInput"
 																						TextWrapping="Wrap"
 																						AcceptsReturn="True"

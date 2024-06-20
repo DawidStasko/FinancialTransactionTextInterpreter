@@ -1,4 +1,4 @@
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FinancialTransactionTextInterpreter.Logic.Interfaces;
 using FinancialTransactionTextInterpreter.Logic.Services.Interfaces;
@@ -14,6 +14,7 @@ public partial class InscribedTransactionsListVM : ObservableObject
 					private readonly INewTransactionCreatedService _newTransactionCreatedService;
 					private readonly ITransactionsSelectionService? _selectionService;
 					private readonly ITransactionsTextProcessor? _transactionsTextProcessor;
+					private readonly ITransactionInterpreterService _transactionInterpreterService;
 					private readonly ISnackbarService _snackbarService;
 					private readonly ILogger<InscribedTransactionsListVM> _logger;
 
@@ -45,7 +46,8 @@ public partial class InscribedTransactionsListVM : ObservableObject
 										ITransactionsTextProcessor? transactionsTextProcessor,
 										INewTransactionCreatedService newTransactionCreatedService,
 										ISnackbarService snackbarService,
-										ILogger<InscribedTransactionsListVM> logger)
+										ILogger<InscribedTransactionsListVM> logger,
+										ITransactionInterpreterService transactionInterpreterService)
 					{
 										_selectionService = selectionService;
 										_transactionsTextProcessor = transactionsTextProcessor;
@@ -53,9 +55,11 @@ public partial class InscribedTransactionsListVM : ObservableObject
 										_newTransactionCreatedService.NewTransactionCreated += (transaction) =>
 										{
 															InscribedTransactions.Insert(0, transaction);
+															transaction.ProcessingResult = _transactionInterpreterService?.ProcessTransactionText(transaction) ?? new Result<IList<Transaction>>() { ErrorMessages = ["TransactionInterpreterService is missing. Could not perform text processing."] };
 										};
 										_snackbarService = snackbarService;
 										_logger = logger;
+										_transactionInterpreterService = transactionInterpreterService;
 
 										InscribedTransactions = new ObservableCollection<InscribedTransaction>();
 
@@ -63,9 +67,15 @@ public partial class InscribedTransactionsListVM : ObservableObject
 										InscribedTransactions = new ObservableCollection<InscribedTransaction>()
 										{
 														new($"&{DateTime.Now.AddDays(-2).ToString("dd-MM-yyyy")} $PKO #Jedzenie To Powinno Miec Wartosc Minus1 -6 +5 Tenutaj Minus8 -8 #Transport -302,02 @StacjaDokowania"),
-
-															new($"&{DateTime.Now.AddDays(-1).ToString("dd-MM-yyyy")} $PKO > $Santander 30 40,1"),
+														new($"&{DateTime.Now.AddDays(-2).ToString("dd-MM-yyyy")} $PKO To Powinno Miec Wartosc Minus1 -6 +5 Tenutaj Minus8 -8 #Transport -302,02 @StacjaDokowania"),
+														new($"&{DateTime.Now.AddDays(-1).ToString("dd-MM-yyyy")} $PKO > $Santander 30 40,1"),
+														new($"&{DateTime.Now.AddDays(-1).ToString("dd-MM-yyyy")} $PKO > $Santander @Żaba 30 40,1"),
 										};
+
+										foreach (InscribedTransaction t in InscribedTransactions)
+										{
+															t.ProcessingResult = _transactionInterpreterService.ProcessTransactionText(t);
+										}
 #endif
 					}
 
