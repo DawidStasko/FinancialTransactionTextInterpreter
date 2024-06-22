@@ -6,7 +6,6 @@ using WpfFinancialTransactionPromptInterpreter.ViewModels;
 
 namespace FinancialTransactionTextInterpreter.ViewModels;
 
-
 public partial class MainWindowVM : ObservableObject
 {
 					private readonly IConfig _config;

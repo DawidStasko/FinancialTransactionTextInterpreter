@@ -9,94 +9,72 @@ namespace WpfFinancialTransactionPromptInterpreter.ViewModels;
 
 public partial class PromptInputVM : ObservableObject
 {
-					private readonly ITransactionsSelectionService _selectionService;
-					private readonly INewTransactionCreatedService _newTransactionCreatedService;
+					private InscribedTransaction? _actualTransaction = null;
+
+					private readonly ITransactionCreatedService _transactionCreatedService;
+					private readonly ITransactionSelectedForEditService _transactionSelectedForEditService;
 					private readonly ITransactionInterpreterService _transactionInterpreterService;
 					private readonly ISuggestionsService _suggestionsService;
 					private readonly ILogger<PromptInputVM> _logger;
 					private bool _showSuggestions;
-					private string _textInput;
-					private ObservableCollection<string> _suggestionsList;
-					private string _actualWord;
 
-					public string TextInput
-					{
-										get { return _textInput; }
-										set
-										{
-															_textInput = value;
-															OnPropertyChanged();
-										}
-					}
+					[ObservableProperty]
+					private string _textInput = "";
 
-					public ObservableCollection<string> SuggestionsList
-					{
-										get { return _suggestionsList; }
-										set
-										{
-															_suggestionsList = value;
-															OnPropertyChanged();
-										}
-					}
+					[ObservableProperty]
+					private ObservableCollection<string> _suggestionsList = new();
 
-					public string ActualWord
-					{
-										get { return _actualWord; }
-										set
-										{
-															_actualWord = value;
-															OnPropertyChanged();
-										}
-					}
+					[ObservableProperty]
+					private string _actualWord = "";
 
-					public PromptInputVM(ITransactionsSelectionService selectionService,
-									INewTransactionCreatedService newTransactionCreatedService,
+					public PromptInputVM(
 									ISuggestionsService suggestionsService,
 									ILogger<PromptInputVM> logger,
-									ITransactionInterpreterService transactionInterpreterService)
+									ITransactionInterpreterService transactionInterpreterService,
+									ITransactionCreatedService transactionCreatedService,
+									ITransactionSelectedForEditService transactionSelectedForEditService)
 					{
-										_selectionService = selectionService;
-										_selectionService.SelectionChanged += (s, e) =>
-										{
-															TextInput = _selectionService.SelectedTransaction?.Text ?? string.Empty;
-										};
-
-										_newTransactionCreatedService = newTransactionCreatedService;
-
-										PropertyChanged += (s, e) =>
-										{
-															if (e.PropertyName == nameof(ActualWord))
-															{
-																				if (string.IsNullOrEmpty(ActualWord))
-																				{
-																									SuggestionsList = [];
-																									return;
-																				}
-																				SuggestionsList = new ObservableCollection<string>(_suggestionsService?.GetSuggestions(ActualWord) ?? []);
-															}
-										};
-
 										_suggestionsService = suggestionsService;
 										_logger = logger;
 										_transactionInterpreterService = transactionInterpreterService;
+										_transactionCreatedService = transactionCreatedService;
+										_transactionSelectedForEditService = transactionSelectedForEditService;
+
+										Validate();
+
+										_transactionSelectedForEditService.TransactionSelectedForEdit += OnTransactionSelectedForEdit;
 					}
 
+					private void OnTransactionSelectedForEdit(InscribedTransaction transaction)
+					{
+										_actualTransaction = transaction;
+										TextInput = _actualTransaction.Text;
+					}
+
+					private void Validate()
+					{
+										if (_suggestionsService == null || _logger == null || _transactionInterpreterService == null || _transactionCreatedService == null || _transactionSelectedForEditService == null)
+										{
+															throw new ArgumentNullException("One of required services is missing in PromptInputVM.");
+										}
+					}
 					[RelayCommand]
 					private void ProcessText()
 					{
-										if (_selectionService.SelectedTransaction == null)
+										if (string.IsNullOrWhiteSpace(TextInput))
 										{
-															InscribedTransaction transaction = new(_textInput);
-															_logger.LogInformation($"Creating new transaction {transaction.Id}");
-															transaction.ProcessingResult = _transactionInterpreterService.ProcessTransactionText(transaction);
-															_newTransactionCreatedService.InformAboutNewTransaction(transaction);
+															_logger.LogWarning("No transaction to process or empty text.");
+															return;
+										}
 
-										}
-										else
-										{
-															_selectionService.SelectedTransaction.Text = _textInput;
-															_selectionService.SelectedTransaction.ProcessingResult = _transactionInterpreterService.ProcessTransactionText(_selectionService.SelectedTransaction);
-										}
+										InscribedTransaction transaction = _actualTransaction ?? new InscribedTransaction("");
+										transaction.Text = TextInput;
+
+										transaction.ProcessingResult = _transactionInterpreterService?.ProcessTransactionText(transaction) ?? new Result<IList<Transaction>>() { ErrorMessages = ["TransactionInterpreterService is missing. Could not perform text processing."] };
+										_logger.LogInformation($"Processing transaction {transaction.Id}");
+
+										if (_actualTransaction == null)
+															_transactionCreatedService.InformAboutTransactionCreated(transaction);
 
 										ClearText();
 					}
@@ -105,6 +83,17 @@ public partial class PromptInputVM : ObservableObject
 					private void ClearText()
 					{
 										TextInput = string.Empty;
-										_selectionService.SelectedTransaction = null;
+										_actualTransaction = null;
+					}
+
+					partial void OnActualWordChanged(string? oldValue, string newValue)
+					{
+										if (string.IsNullOrWhiteSpace(ActualWord))
+										{
+															SuggestionsList = [];
+															return;
+										}
+
+										SuggestionsList = new ObservableCollection<string>(_suggestionsService?.GetSuggestions(ActualWord) ?? []);
 					}
 }

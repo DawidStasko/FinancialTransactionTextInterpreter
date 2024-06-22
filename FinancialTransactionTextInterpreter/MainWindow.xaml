@@ -11,10 +11,7 @@
 																	mc:Ignorable="d"
 																	Title="Financial Transaction Interpreter"
 																	WindowState="Maximized"
-																		WindowStyle="None">
-					<Window.Resources>
-										<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-					</Window.Resources>
+																	WindowStyle="None">
 					<Grid>
 										<Grid>
 															<Grid.RowDefinitions>

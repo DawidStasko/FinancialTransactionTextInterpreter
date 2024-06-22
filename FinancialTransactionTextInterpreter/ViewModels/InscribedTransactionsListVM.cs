@@ -6,76 +6,83 @@ using Microsoft.Extensions.Logging;
 using System.Collections.ObjectModel;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
+
 namespace WpfFinancialTransactionPromptInterpreter.ViewModels;
 
 public partial class InscribedTransactionsListVM : ObservableObject
 {
-					private readonly INewTransactionCreatedService _newTransactionCreatedService;
-					private readonly ITransactionsSelectionService _selectionService;
+					private readonly ITransactionCreatedService _transactionCreatedOrUpdatedService;
+					private readonly ITransactionSelectedForEditService _transactionSelectedForEditService;
 					private readonly ITransactionInterpreterService _transactionInterpreterService;
 					private readonly ITransactionSaverService _transactionSaverService;
 					private readonly ISnackbarService _snackbarService;
 					private readonly ILogger<InscribedTransactionsListVM> _logger;
 
-					private ObservableCollection<InscribedTransaction> _inscribedTransactions = new();
-					private InscribedTransaction _selectedItem;
+					[ObservableProperty]
+					private ObservableCollection<InscribedTransaction> _inscribedTransactions;
 
-					public ObservableCollection<InscribedTransaction> InscribedTransactions
-					{
-										get { return _inscribedTransactions; }
-										set
-										{
-															_inscribedTransactions = value;
-															OnPropertyChanged();
-										}
-					}
+					[ObservableProperty]
+					private InscribedTransaction? _selectedItem;
 
-					public InscribedTransaction SelectedItem
-					{
-
-										get { return _selectedItem; }
-										set
-										{
-															_selectedItem = value;
-															OnPropertyChanged();
-										}
-					}
-
-					public InscribedTransactionsListVM(ITransactionsSelectionService selectionService,
-										INewTransactionCreatedService newTransactionCreatedService,
+					public InscribedTransactionsListVM(
 										ISnackbarService snackbarService,
 										ILogger<InscribedTransactionsListVM> logger,
 										ITransactionInterpreterService transactionInterpreterService,
-										ITransactionSaverService transactionSaverService)
+										ITransactionSaverService transactionSaverService,
+										ITransactionCreatedService transactionCreatedOrUpdatedService,
+										ITransactionSelectedForEditService transactionSelectedForEditService)
 					{
-										_selectionService = selectionService;
-										_newTransactionCreatedService = newTransactionCreatedService;
 										_snackbarService = snackbarService;
 										_logger = logger;
 										_transactionInterpreterService = transactionInterpreterService;
+										_transactionSaverService = transactionSaverService;
+										_transactionCreatedOrUpdatedService = transactionCreatedOrUpdatedService;
+										_transactionSelectedForEditService = transactionSelectedForEditService;
 
 										InscribedTransactions = new ObservableCollection<InscribedTransaction>();
 
-										_newTransactionCreatedService.NewTransactionCreated += (transaction) =>
+										Validate();
+
+										_transactionCreatedOrUpdatedService.TransactionCreated += OnTransactionCreated;
+
+										CreateTestingData();
+					}
+
+					private void OnTransactionCreated(InscribedTransaction transaction)
+					{
+										if (transaction is not null)
 										{
 															InscribedTransactions.Insert(0, transaction);
-															transaction.ProcessingResult = _transactionInterpreterService?.ProcessTransactionText(transaction) ?? new Result<IList<Transaction>>() { ErrorMessages = ["TransactionInterpreterService is missing. Could not perform text processing."] };
-										};
-										CreateTestingData();
-										_transactionSaverService = transactionSaverService;
+										}
+					}
+
+					private void Validate()
+					{
+										if (_snackbarService == null ||
+															_logger == null ||
+															_transactionInterpreterService == null ||
+															_transactionSaverService == null ||
+															_transactionCreatedOrUpdatedService == null ||
+															_transactionSelectedForEditService == null ||
+															InscribedTransactions == null)
+										{
+															throw new ArgumentNullException();
+										}
 					}
 
 					[RelayCommand]
 					private void Edit(InscribedTransaction selectedTransaction)
 					{
-										if (_selectionService != null)
-															_selectionService.SelectedTransaction = selectedTransaction;
+										if (selectedTransaction != null)
+															_transactionSelectedForEditService.InformAboutTransactionToEdit(selectedTransaction);
+
 					}
 
 					[RelayCommand]
 					private void Delete()
 					{
-										InscribedTransactions.Remove(SelectedItem);
+										if (SelectedItem != null)
+															InscribedTransactions.Remove(SelectedItem);
 					}
 
 					[RelayCommand]

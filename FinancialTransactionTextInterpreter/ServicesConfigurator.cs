@@ -16,8 +16,6 @@ internal class ServicesConfigurator
 {
 					internal static void ConfigureServices(ServiceCollection serviceCollection)
 					{
-
-
 										serviceCollection.AddLogging(x =>
 										{
 															Serilog.Core.Logger logger = new LoggerConfiguration()
@@ -41,12 +39,12 @@ internal class ServicesConfigurator
 
 										//Services
 										serviceCollection.AddScoped<ITransactionInterpreterService, TransactionInterpreterService>();
-										serviceCollection.AddScoped<ITransactionsSelectionService, TransactionsSelectionService>();
 										serviceCollection.AddScoped<IPredefinedDataService, PredefinedDataService>();
-										serviceCollection.AddScoped<INewTransactionCreatedService, NewTransactionCreatedService>();
 										serviceCollection.AddScoped<ISuggestionsService, SuggestionsService>();
 										serviceCollection.AddSingleton<ISnackbarService, SnackbarService>();
 										serviceCollection.AddScoped<ITransactionSaverService, TransactionSaverService>();
+										serviceCollection.AddScoped<ITransactionCreatedService, TransactionOperationService>();
+										serviceCollection.AddScoped<ITransactionSelectedForEditService, TransactionOperationService>();
 
 										//Infrastructure
 										serviceCollection.AddSingleton<IConfig, UserConfiguration>();
@@ -55,5 +53,6 @@ internal class ServicesConfigurator
 										serviceCollection.AddScoped<IContractorsRepository, ExcelDataRepository>();
 										serviceCollection.AddScoped<ITransactionsRepository, TransactionToXLSXSaver>();
 										serviceCollection.AddScoped<ILastDateProvider, ExcelDataRepository>();
+
 					}
 }
