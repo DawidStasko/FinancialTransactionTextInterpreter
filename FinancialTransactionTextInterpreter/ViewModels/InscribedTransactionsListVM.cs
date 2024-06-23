@@ -32,6 +32,13 @@ public partial class InscribedTransactionsListVM : ObservableObject
 										ITransactionCreatedService transactionCreatedOrUpdatedService,
 										ITransactionSelectedForEditService transactionSelectedForEditService)
 					{
+										ArgumentNullException.ThrowIfNull(logger);
+										ArgumentNullException.ThrowIfNull(snackbarService);
+										ArgumentNullException.ThrowIfNull(transactionInterpreterService);
+										ArgumentNullException.ThrowIfNull(transactionSaverService);
+										ArgumentNullException.ThrowIfNull(transactionCreatedOrUpdatedService);
+										ArgumentNullException.ThrowIfNull(transactionSelectedForEditService);
+
 										_snackbarService = snackbarService;
 										_logger = logger;
 										_transactionInterpreterService = transactionInterpreterService;
@@ -40,8 +47,6 @@ public partial class InscribedTransactionsListVM : ObservableObject
 										_transactionSelectedForEditService = transactionSelectedForEditService;
 
 										InscribedTransactions = new ObservableCollection<InscribedTransaction>();
-
-										Validate();
 
 										_transactionCreatedOrUpdatedService.TransactionCreated += OnTransactionCreated;
 
@@ -53,20 +58,6 @@ public partial class InscribedTransactionsListVM : ObservableObject
 										if (transaction is not null)
 										{
 															InscribedTransactions.Insert(0, transaction);
-										}
-					}
-
-					private void Validate()
-					{
-										if (_snackbarService == null ||
-															_logger == null ||
-															_transactionInterpreterService == null ||
-															_transactionSaverService == null ||
-															_transactionCreatedOrUpdatedService == null ||
-															_transactionSelectedForEditService == null ||
-															InscribedTransactions == null)
-										{
-															throw new ArgumentNullException();
 										}
 					}
 

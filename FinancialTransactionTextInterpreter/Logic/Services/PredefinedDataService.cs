@@ -1,4 +1,4 @@
-﻿using FinancialTransactionTextInterpreter.Logic.ExternalInterfaces;
+﻿using FinancialTransactionTextInterpreter.Logic.InfrastructureInterfaces;
 using FinancialTransactionTextInterpreter.Logic.Services.Interfaces;
 using FinancialTransactionTextInterpreter.Model.Interfaces;
 
@@ -12,6 +12,11 @@ public class PredefinedDataService : IPredefinedDataService
 										IAccountsRepository accountRepository,
 										IConfig config)
 					{
+										ArgumentNullException.ThrowIfNull(categoryRepository);
+										ArgumentNullException.ThrowIfNull(contractorRepository);
+										ArgumentNullException.ThrowIfNull(accountRepository);
+										ArgumentNullException.ThrowIfNull(config);
+
 										Categories = categoryRepository.GetAllCategories().ToList();
 										Contractors = contractorRepository.GetAllContractors().ToList();
 										Accounts = accountRepository.GetAllAccounts().ToList();

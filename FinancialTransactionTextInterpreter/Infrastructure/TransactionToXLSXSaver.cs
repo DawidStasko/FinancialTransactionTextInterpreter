@@ -1,5 +1,5 @@
 ﻿using ClosedXML.Excel;
-using FinancialTransactionTextInterpreter.Logic.ExternalInterfaces;
+using FinancialTransactionTextInterpreter.Logic.InfrastructureInterfaces;
 using FinancialTransactionTextInterpreter.Model;
 using FinancialTransactionTextInterpreter.Model.Interfaces;
 
@@ -10,6 +10,8 @@ public class TransactionToXLSXSaver : ITransactionsRepository
 
 					public TransactionToXLSXSaver(IConfig config)
 					{
+										ArgumentNullException.ThrowIfNull(config);
+
 										_config = config;
 					}
 
@@ -52,7 +54,9 @@ public class TransactionToXLSXSaver : ITransactionsRepository
 															XLColor newBackgroundColor = XLColor.DarkElectricBlue;
 
 															if (firstRow.RowNumber() == 1)
+															{
 																				newBackgroundColor = XLColor.DarkGreen;
+															}
 															else
 															{
 																				XLColor? rowAboveBackgroundColor = firstRow.RowAbove().Cell(1).Style.Fill.BackgroundColor;

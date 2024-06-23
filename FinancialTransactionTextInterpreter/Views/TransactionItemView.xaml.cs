@@ -10,10 +10,4 @@ public partial class TransactionItemView : UserControl
 					{
 										InitializeComponent();
 					}
-
-					private void ProcessingResult_SelectionChanged(object sender, SelectionChangedEventArgs e)
-					{
-
-					}
-
 }

@@ -1,4 +1,4 @@
-﻿using FinancialTransactionTextInterpreter.Logic.ExternalInterfaces;
+﻿using FinancialTransactionTextInterpreter.Logic.InfrastructureInterfaces;
 using FinancialTransactionTextInterpreter.Logic.Services.Interfaces;
 using FinancialTransactionTextInterpreter.Model;
 
@@ -9,6 +9,7 @@ internal class TransactionSaverService : ITransactionSaverService
 
 					public TransactionSaverService(ITransactionsRepository transactionsRepository)
 					{
+										ArgumentNullException.ThrowIfNull(transactionsRepository);
 										_transactionsRepository = transactionsRepository;
 					}
 
@@ -19,6 +20,11 @@ internal class TransactionSaverService : ITransactionSaverService
 										{
 															try
 															{
+																				ArgumentNullException.ThrowIfNull(transaction);
+																				ArgumentNullException.ThrowIfNull(transaction.Date);
+																				ArgumentNullException.ThrowIfNullOrWhiteSpace(transaction.Account);
+																				ArgumentNullException.ThrowIfNullOrWhiteSpace(transaction.Contractor);
+
 																				results.Add(_transactionsRepository.Save(transaction));
 															}
 															catch (Exception ex)

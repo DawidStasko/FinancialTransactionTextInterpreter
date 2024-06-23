@@ -26,6 +26,12 @@ public partial class MainWindowVM : ObservableObject
 
 					public MainWindowVM(PromptInputVM promptInputVM, InscribedTransactionsListVM inscribedTransactionsListVM, IConfig config, ISnackbarService snackbarService, HelpBoxVM helpBoxVM)
 					{
+										ArgumentNullException.ThrowIfNull(promptInputVM);
+										ArgumentNullException.ThrowIfNull(inscribedTransactionsListVM);
+										ArgumentNullException.ThrowIfNull(config);
+										ArgumentNullException.ThrowIfNull(snackbarService);
+										ArgumentNullException.ThrowIfNull(helpBoxVM);
+
 										PromptInputVM = promptInputVM;
 										InscribedTransactionsListVM = inscribedTransactionsListVM;
 										HelpBoxVM = helpBoxVM;

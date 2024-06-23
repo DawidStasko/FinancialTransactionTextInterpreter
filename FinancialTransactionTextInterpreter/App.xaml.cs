@@ -8,7 +8,7 @@ namespace FinancialTransactionTextInterpreter;
 /// </summary>
 public partial class App : Application
 {
-					public IServiceProvider ServiceProvider { get; private set; }
+					public IServiceProvider? ServiceProvider { get; private set; }
 
 					protected override void OnStartup(StartupEventArgs e)
 					{
@@ -22,7 +22,11 @@ public partial class App : Application
 										ServicesConfigurator.ConfigureServices(serviceCollection);
 
 										ServiceProvider = serviceCollection.BuildServiceProvider();
-										MainWindow mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+										ArgumentNullException.ThrowIfNull(ServiceProvider);
+
+										MainWindow? mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+										ArgumentNullException.ThrowIfNull(mainWindow);
+
 										mainWindow.Show();
 
 					}
@@ -40,7 +44,7 @@ public partial class App : Application
 
 					private void OnAppDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
 					{
-										MessageBox.Show("An unhandled exception occurred. Trace log will be saved to logs.", "Unhandled Exception");
+										MessageBox.Show($"An unhandled exception occurred. Trace log will be saved to logs.", "Unhandled Exception");
 										Log.Logger = new LoggerConfiguration()
 															.MinimumLevel.Fatal()
 															.WriteTo.File("FatalErrors/UnhandledException-.txt", rollingInterval: RollingInterval.Minute)

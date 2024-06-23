@@ -53,6 +53,11 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 																									transaction.Account = word.Substring(1);
 																									break;
 																				case '@':
+																									if (transaction.Contractor != null)
+																									{
+																														errors.Add("Transaction has two contractors defined.");
+																														break;
+																									}
 																									transaction.Contractor = word.Substring(1);
 																									break;
 																				case '#':
@@ -158,15 +163,19 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 																				case '$':
 																									sourceAccount = word.Substring(1);
 																									if (transactionTextWords[i + 1] != ">")
+																									{
 																														errors.Add("'>' need to show cashflow from source account to target account and need to be right between two accounts.");
+																														break;
+																									}
 
 																									if (transactionTextWords[i + 2][0] != '$')
-																														errors.Add("Proper transfer transactions need to define source and target accounts in this maner: $source > $target");
-																									else
 																									{
-																														targetAccount = transactionTextWords[i + 2].Substring(1);
-																														i += 2;
+																														errors.Add("Proper transfer transactions need to define source and target accounts in this manner: $source > $target");
+																														break;
 																									}
+
+																									targetAccount = transactionTextWords[i + 2].Substring(1);
+																									i += 2;
 																									break;
 																				case '@':
 																									errors.Add("Contractor not allowed in transfer transaction.");

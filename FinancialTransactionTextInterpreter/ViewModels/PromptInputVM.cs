@@ -16,7 +16,6 @@ public partial class PromptInputVM : ObservableObject
 					private readonly ITransactionInterpreterService _transactionInterpreterService;
 					private readonly ISuggestionsService _suggestionsService;
 					private readonly ILogger<PromptInputVM> _logger;
-					private bool _showSuggestions;
 
 					[ObservableProperty]
 					private string _textInput = "";
@@ -34,13 +33,17 @@ public partial class PromptInputVM : ObservableObject
 									ITransactionCreatedService transactionCreatedService,
 									ITransactionSelectedForEditService transactionSelectedForEditService)
 					{
+										ArgumentNullException.ThrowIfNull(suggestionsService);
+										ArgumentNullException.ThrowIfNull(logger);
+										ArgumentNullException.ThrowIfNull(transactionSelectedForEditService);
+										ArgumentNullException.ThrowIfNull(transactionCreatedService);
+										ArgumentNullException.ThrowIfNull(transactionInterpreterService);
+
 										_suggestionsService = suggestionsService;
 										_logger = logger;
 										_transactionInterpreterService = transactionInterpreterService;
 										_transactionCreatedService = transactionCreatedService;
 										_transactionSelectedForEditService = transactionSelectedForEditService;
-
-										Validate();
 
 										_transactionSelectedForEditService.TransactionSelectedForEdit += OnTransactionSelectedForEdit;
 					}
@@ -51,13 +54,6 @@ public partial class PromptInputVM : ObservableObject
 										TextInput = _actualTransaction.Text;
 					}
 
-					private void Validate()
-					{
-										if (_suggestionsService == null || _logger == null || _transactionInterpreterService == null || _transactionCreatedService == null || _transactionSelectedForEditService == null)
-										{
-															throw new ArgumentNullException("One of required services is missing in PromptInputVM.");
-										}
-					}
 					[RelayCommand]
 					private void ProcessText()
 					{

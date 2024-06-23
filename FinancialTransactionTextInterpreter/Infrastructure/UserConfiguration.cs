@@ -1,12 +1,13 @@
-﻿using FinancialTransactionTextInterpreter.Model.Interfaces;
+﻿using FinancialTransactionTextInterpreter.Model.Exceptions;
+using FinancialTransactionTextInterpreter.Model.Interfaces;
 using Newtonsoft.Json.Linq;
 using System.IO;
 
 namespace FinancialTransactionTextInterpreter.Infrastructure;
 public class UserConfiguration : IConfig
 {
-					private string _fileName;
-					private string _financialDataFullyQualifiedFileName;
+					private string _fileName = "";
+					private string _financialDataFullyQualifiedFileName = "";
 
 					public UserConfiguration()
 					{
@@ -38,7 +39,11 @@ public class UserConfiguration : IConfig
 																				_financialDataFullyQualifiedFileName = value;
 																				SaveToFile(nameof(FinancialDataFullyQualifiedFileName), value);
 															}
-															catch (Exception ex)
+															catch (Exception e)
+															{
+																				throw new SaveToFileException("Error saving configuration", e);
+															}
+															finally
 															{
 																				_financialDataFullyQualifiedFileName = oldValue;
 															}
@@ -48,9 +53,9 @@ public class UserConfiguration : IConfig
 
 					public event EventHandler? ConfigChanged;
 
-					private async Task SaveToFile(string node, string value)
+					private void SaveToFile(string node, string value)
 					{
-										string fileContent = await File.ReadAllTextAsync(_fileName);
+										string fileContent = File.ReadAllText(_fileName);
 										JObject settings = JObject.Parse(fileContent);
 										settings[node] = value;
 

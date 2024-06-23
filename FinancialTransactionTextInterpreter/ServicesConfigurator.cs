@@ -1,5 +1,5 @@
 ﻿using FinancialTransactionTextInterpreter.Infrastructure;
-using FinancialTransactionTextInterpreter.Logic.ExternalInterfaces;
+using FinancialTransactionTextInterpreter.Logic.InfrastructureInterfaces;
 using FinancialTransactionTextInterpreter.Logic.Services;
 using FinancialTransactionTextInterpreter.Logic.Services.Interfaces;
 using FinancialTransactionTextInterpreter.Model.Interfaces;

@@ -1,6 +1,6 @@
 ﻿using FinancialTransactionTextInterpreter.Model;
 
-namespace FinancialTransactionTextInterpreter.Logic.ExternalInterfaces;
+namespace FinancialTransactionTextInterpreter.Logic.InfrastructureInterfaces;
 
 public interface ITransactionsRepository
 {

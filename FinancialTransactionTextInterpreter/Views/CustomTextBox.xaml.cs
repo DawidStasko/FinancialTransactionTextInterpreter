@@ -72,7 +72,7 @@ public partial class CustomTextBox : UserControl
 															return string.Empty;
 
 										int currentCaretIndex = caretIndex;
-										char? processedLetter = null;
+										char? processedLetter;
 										LinkedList<char?> actualWord = new();
 										StringBuilder actualStringBuilder = new();
 										while (currentCaretIndex > 0)
@@ -233,7 +233,6 @@ public partial class CustomTextBox : UserControl
 										return (newText, newIndex);
 
 					}
-
 
 					private void MoveUp(RoutedEventArgs e)
 					{

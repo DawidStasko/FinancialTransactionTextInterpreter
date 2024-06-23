@@ -41,7 +41,6 @@
 																				CanUserAddRows="False"
 																				IsReadOnly="True"
 																				Padding="5"
-																				SelectionChanged="ProcessingResult_SelectionChanged"
 																				Visibility="{Binding HasErrors, Converter={x:Static converters:BoolToVisibilityConverter.TrueToCollapsed}, Mode=OneWay}">
 															<DataGrid.Columns>
 																				<DataGridTemplateColumn Header="Date"

@@ -1,5 +1,5 @@
 ﻿using ClosedXML.Excel;
-using FinancialTransactionTextInterpreter.Logic.ExternalInterfaces;
+using FinancialTransactionTextInterpreter.Logic.InfrastructureInterfaces;
 using FinancialTransactionTextInterpreter.Model.Interfaces;
 using System.Globalization;
 
@@ -10,6 +10,8 @@ public class ExcelDataRepository : ICategoriesRepository, IAccountsRepository, I
 
 					public ExcelDataRepository(IConfig config)
 					{
+										ArgumentNullException.ThrowIfNull(config);
+
 										_config = config;
 					}
 

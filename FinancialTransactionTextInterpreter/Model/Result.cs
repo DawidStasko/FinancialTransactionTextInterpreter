@@ -12,5 +12,5 @@ public record Result<T>()
 										}
 					}
 					public T? Value { get; init; }
-					public IReadOnlyCollection<string> ErrorMessages { get; init; }
+					public IReadOnlyCollection<string>? ErrorMessages { get; init; }
 }
