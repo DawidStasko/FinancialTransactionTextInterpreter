@@ -8,6 +8,7 @@ public class UserConfiguration : IConfig
 {
 					private string _fileName = "";
 					private string _financialDataFullyQualifiedFileName = "";
+					private string _applicationLanguage = "";
 
 					public UserConfiguration()
 					{
@@ -26,6 +27,7 @@ public class UserConfiguration : IConfig
 					{
 										JObject settings = JObject.Parse(File.ReadAllText(_fileName));
 										_financialDataFullyQualifiedFileName = settings[nameof(FinancialDataFullyQualifiedFileName)]?.ToString() ?? "";
+										_applicationLanguage = settings[nameof(ApplicationLanguage)]?.ToString() ?? "en-US";
 					}
 
 					public string FinancialDataFullyQualifiedFileName
@@ -48,6 +50,23 @@ public class UserConfiguration : IConfig
 																				_financialDataFullyQualifiedFileName = oldValue;
 															}
 															ConfigChanged?.Invoke(this, EventArgs.Empty);
+										}
+					}
+
+					public string ApplicationLanguage
+					{
+										get => _applicationLanguage;
+										set
+										{
+															_applicationLanguage = value;
+															try
+															{
+																				SaveToFile(nameof(ApplicationLanguage), value);
+															}
+															catch (Exception e)
+															{
+																				throw new SaveToFileException("Error saving configuration", e);
+															}
 										}
 					}
 

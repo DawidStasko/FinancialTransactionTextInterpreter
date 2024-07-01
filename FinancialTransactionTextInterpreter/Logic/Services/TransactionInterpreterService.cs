@@ -13,11 +13,11 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 										string[] transactionTextWords = transactionText.Text?.Split(' ', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries) ?? [];
 
 										if (transactionTextWords.Length == 0)
-															return new Result<IList<Transaction>>() { ErrorMessages = ["Transaction text is empty"] };
+															return new Result<IList<Transaction>>() { ErrorMessages = [Localization.Strings.ErrorMessage_TransactionTextIsEmpty] };
 
 										int numberOfAccounts = transactionTextWords.Count(w => w.StartsWith('$'));
 										if (numberOfAccounts != 1 && numberOfAccounts != 2)
-															return new Result<IList<Transaction>>() { ErrorMessages = ["Transaction text should contain at least one and no more than two accounts"] };
+															return new Result<IList<Transaction>>() { ErrorMessages = [Localization.Strings.ErrorMessage_InformationAboutAccountsNumberInTransaction] };
 
 										Result<IList<Transaction>>? result = null;
 
@@ -27,7 +27,7 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 										if (numberOfAccounts == 2)
 															result = ProcessTransferTransactions(transactionTextWords);
 
-										return result ?? new Result<IList<Transaction>>() { ErrorMessages = ["Unexpected error occurred when processing transaction."] };
+										return result ?? new Result<IList<Transaction>>() { ErrorMessages = [Localization.Strings.ErrorMessage_UnexpectedErrorWhenProcessing] };
 					}
 
 					private Result<IList<Transaction>>? ProcessExternalTransaction(string[] transactionTextWords)
@@ -45,7 +45,7 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 																				case '&':
 																									bool result = DateOnly.TryParseExact(word.Substring(1), "dd-MM-yyyy", out DateOnly date);
 																									if (!result)
-																														errors.Add("Date format should be dd-MM-yyyy");
+																														errors.Add(Localization.Strings.ErrorMessage_InformationAboutDateFormat);
 																									else
 																														transaction.Date = date;
 																									break;
@@ -55,7 +55,7 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 																				case '@':
 																									if (transaction.Contractor != null)
 																									{
-																														errors.Add("Transaction has two contractors defined.");
+																														errors.Add(Localization.Strings.ErrorMessage_InformationAboutContractorsNumber);
 																														break;
 																									}
 																									transaction.Contractor = word.Substring(1);
@@ -69,7 +69,7 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 																				default:
 																									if (string.IsNullOrEmpty(actualCategory))
 																									{
-																														errors.Add("Items need to have category written before them.");
+																														errors.Add(Localization.Strings.ErrorMessage_InformationAboutCategoryRequirementForItems);
 																														actualCategory = "MissingCategory";
 																									}
 
@@ -158,7 +158,7 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 																				case '&':
 																									bool result = DateOnly.TryParseExact(word.Substring(1), "dd-MM-yyyy", out date);
 																									if (!result)
-																														errors.Add("Date format should be dd-MM-yyyy");
+																														errors.Add(Localization.Strings.ErrorMessage_InformationAboutDateFormat);
 																									break;
 																				case '$':
 																									sourceAccount = word.Substring(1);

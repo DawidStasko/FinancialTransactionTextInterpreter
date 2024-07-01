@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
-namespace WpfFinancialTransactionPromptInterpreter.ViewModels;
+namespace FinancialTransactionTextInterpreter.ViewModels;
 
 public partial class InscribedTransactionsListVM : ObservableObject
 {

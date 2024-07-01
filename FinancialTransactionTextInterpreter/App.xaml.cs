@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FinancialTransactionTextInterpreter.Model.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using System.Globalization;
 using System.Windows;
 
 namespace FinancialTransactionTextInterpreter;
@@ -24,9 +26,12 @@ public partial class App : Application
 										ServiceProvider = serviceCollection.BuildServiceProvider();
 										ArgumentNullException.ThrowIfNull(ServiceProvider);
 
+										IConfig config = ServiceProvider.GetRequiredService<IConfig>();
+										Thread.CurrentThread.CurrentCulture = new CultureInfo(config.ApplicationLanguage);
+										Thread.CurrentThread.CurrentUICulture = new CultureInfo(config.ApplicationLanguage);
+
 										MainWindow? mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
 										ArgumentNullException.ThrowIfNull(mainWindow);
-
 										mainWindow.Show();
 
 					}

@@ -2,7 +2,6 @@
 using FinancialTransactionTextInterpreter.Model.Interfaces;
 using System.Windows;
 using Wpf.Ui;
-using WpfFinancialTransactionPromptInterpreter.ViewModels;
 
 namespace FinancialTransactionTextInterpreter.ViewModels;
 
@@ -12,7 +11,7 @@ public partial class MainWindowVM : ObservableObject
 					private readonly ISnackbarService _snackbarService;
 
 					[ObservableProperty]
-					private bool _isHelpBoxVisible = true;
+					private bool _isHelpBoxVisible = false;
 
 					[ObservableProperty]
 					private Visibility _helpBoxVisibility = Visibility.Hidden;
@@ -20,23 +19,23 @@ public partial class MainWindowVM : ObservableObject
 					[ObservableProperty]
 					private Visibility _inscribedTransactionsListVisibility = Visibility.Visible;
 
-					public PromptInputVM PromptInputVM { get; }
+					public TextInputVM TextInputVM { get; }
 					public InscribedTransactionsListVM InscribedTransactionsListVM { get; }
-					public HelpBoxVM HelpBoxVM { get; }
+					public LanguageSelectorVM LanguageSelectorVM { get; }
 
-					public MainWindowVM(PromptInputVM promptInputVM, InscribedTransactionsListVM inscribedTransactionsListVM, IConfig config, ISnackbarService snackbarService, HelpBoxVM helpBoxVM)
+					public MainWindowVM(TextInputVM textInputVM, InscribedTransactionsListVM inscribedTransactionsListVM, IConfig config, ISnackbarService snackbarService, LanguageSelectorVM languageSelectorVM)
 					{
-										ArgumentNullException.ThrowIfNull(promptInputVM);
+										ArgumentNullException.ThrowIfNull(textInputVM);
 										ArgumentNullException.ThrowIfNull(inscribedTransactionsListVM);
+										ArgumentNullException.ThrowIfNull(languageSelectorVM);
 										ArgumentNullException.ThrowIfNull(config);
 										ArgumentNullException.ThrowIfNull(snackbarService);
-										ArgumentNullException.ThrowIfNull(helpBoxVM);
 
-										PromptInputVM = promptInputVM;
+										TextInputVM = textInputVM;
 										InscribedTransactionsListVM = inscribedTransactionsListVM;
-										HelpBoxVM = helpBoxVM;
 										_config = config;
 										_snackbarService = snackbarService;
+										LanguageSelectorVM = languageSelectorVM;
 					}
 
 					partial void OnIsHelpBoxVisibleChanged(bool value)

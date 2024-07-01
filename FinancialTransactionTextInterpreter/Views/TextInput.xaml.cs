@@ -2,11 +2,12 @@
 
 namespace FinancialTransactionTextInterpreter.Views;
 /// <summary>
-/// Interaction logic for HelpBox.xaml
+/// Interaction logic for PromptInput.xaml
 /// </summary>
-public partial class HelpBox : UserControl
+public partial class TextInput : UserControl
 {
-					public HelpBox()
+
+					public TextInput()
 					{
 										InitializeComponent();
 					}

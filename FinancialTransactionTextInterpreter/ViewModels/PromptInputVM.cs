@@ -5,9 +5,9 @@ using FinancialTransactionTextInterpreter.Model;
 using Microsoft.Extensions.Logging;
 using System.Collections.ObjectModel;
 
-namespace WpfFinancialTransactionPromptInterpreter.ViewModels;
+namespace FinancialTransactionTextInterpreter.ViewModels;
 
-public partial class PromptInputVM : ObservableObject
+public partial class TextInputVM : ObservableObject
 {
 					private InscribedTransaction? _actualTransaction = null;
 
@@ -15,7 +15,7 @@ public partial class PromptInputVM : ObservableObject
 					private readonly ITransactionSelectedForEditService _transactionSelectedForEditService;
 					private readonly ITransactionInterpreterService _transactionInterpreterService;
 					private readonly ISuggestionsService _suggestionsService;
-					private readonly ILogger<PromptInputVM> _logger;
+					private readonly ILogger<TextInputVM> _logger;
 
 					[ObservableProperty]
 					private string _textInput = "";
@@ -26,9 +26,9 @@ public partial class PromptInputVM : ObservableObject
 					[ObservableProperty]
 					private string _actualWord = "";
 
-					public PromptInputVM(
+					public TextInputVM(
 									ISuggestionsService suggestionsService,
-									ILogger<PromptInputVM> logger,
+									ILogger<TextInputVM> logger,
 									ITransactionInterpreterService transactionInterpreterService,
 									ITransactionCreatedService transactionCreatedService,
 									ITransactionSelectedForEditService transactionSelectedForEditService)

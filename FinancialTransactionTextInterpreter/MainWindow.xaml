@@ -24,31 +24,32 @@
 																												Grid.Row="0" />
 															<Menu Grid.Row="1">
 																				<ui:MenuItem Icon="{ui:SymbolIcon DocumentData32}"
-																																	Click="OpenFileDialog" 
-																																	ToolTip="Select financial data xlsx file."/>
+																																	Click="OpenFileDialog"
+																																	ToolTip="Select financial data xlsx file." />
 																				<ui:MenuItem Icon="{ui:SymbolIcon BookQuestionMarkRtl24}"
 																																	IsCheckable="True"
-																																	IsChecked="{Binding IsHelpBoxVisible}" 
-																																	ToolTip="Open help."/>
-																				<ui:MenuItem Icon="{ui:SymbolIcon Open32}" 
+																																	IsChecked="{Binding IsHelpBoxVisible}"
+																																	ToolTip="Open help." />
+																				<ui:MenuItem Icon="{ui:SymbolIcon Open32}"
 																																	Click="OpenExcelFile"
-																																	ToolTip="Open xlsx file with financial data."/>
+																																	ToolTip="Open xlsx file with financial data." />
+
+																				<customControls:LanguageSelectorView DataContext="{Binding LanguageSelectorVM}"></customControls:LanguageSelectorView>
 
 															</Menu>
-															<customControls:PromptInput x:Name="TextInputControl"
+															<customControls:TextInput x:Name="TextInputControl"
 																																											Grid.Row="2"
-																																											DataContext="{Binding PromptInputVM}" />
+																																									DataContext="{Binding TextInputVM}" />
 															<customControls:TransactionsListView x:Name="MainWindow_TransactionsList"
-																																																									Grid.Row="3"
-																																																									DataContext="{Binding InscribedTransactionsListVM}"
-																																																									Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+																																																				Grid.Row="3"
+																																																				DataContext="{Binding InscribedTransactionsListVM}"
+																																																				Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
                                                          AncestorType={x:Type Window}},
 																																																									Mode=OneWay,
                                                          Path=DataContext.InscribedTransactionsListVisibility}" />
-															<customControls:HelpBox x:Name="MainWindow_HelpBox"
+															<customControls:HelpView x:Name="MainWindow_HelpBox"
 																																							Grid.Row="3"
 																																							Panel.ZIndex="100"
-																																							DataContext="{Binding HelpBoxVM}"
 																																							Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
                                                          AncestorType={x:Type Window}},
 																																																									Mode=OneWay,

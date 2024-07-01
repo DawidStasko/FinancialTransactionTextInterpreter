@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ErrorMessage_InformationAboutAccountsNumberInTransaction" xml:space="preserve">
+    <value>Transaction text should contain at least one and no more than two accounts.</value>
+  </data>
+  <data name="ErrorMessage_InformationAboutCategoryRequirementForItems" xml:space="preserve">
+    <value>Items need to have category written before them.</value>
+  </data>
+  <data name="ErrorMessage_InformationAboutContractorsNumber" xml:space="preserve">
+    <value>Transaction text contains too many contractors.</value>
+  </data>
+  <data name="ErrorMessage_InformationAboutDateFormat" xml:space="preserve">
+    <value>Date format should be dd-MM-yyyy.</value>
+  </data>
+  <data name="ErrorMessage_ProcessingWasNotDoneYet" xml:space="preserve">
+    <value>Processing was not done yet.</value>
+  </data>
+  <data name="ErrorMessage_TransactionTextIsEmpty" xml:space="preserve">
+    <value>Transaction text is empty.</value>
+  </data>
+  <data name="ErrorMessage_UnexpectedErrorWhenProcessing" xml:space="preserve">
+    <value>Unexpected error occurred when processing transaction.</value>
+  </data>
+  <data name="HelpBoxView_ExamplesSectionContent" xml:space="preserve">
+    <value>- Transaction with item names:
+
+&amp;22-04-2024 $Wallet #Food roll 2.2 2.2 +0.4 ham 3.3 #Craving bar 4.5 @Frog.
+
+From this text, a transaction will be created with a contractor named Frog, concluded on April 22, 2024, which was paid from an account named wallet. The elements of this transaction will be created: a roll with a price - 4 and a food category, a ham with a price - 3.3 and a food category, and a bar with a price - 4.5 and a craving category.
+- Transaction without item names
+
+&amp;22-04-2024 $Bank #Food 2.2 2.2 +0.4 3.3 #Craving 4.5 @Frog.
+
+In this case, a transaction will also be created with a counterparty named Frog, concluded on April 22, 2024, which was paid from an account named bank. However, it will have two items one named food with a price of -7.3 and a food category and the other named craving with a price of -4.5 and the name craving.
+- Transfer:
+
+&amp;22-04-2024 $Bank &gt; $Wallet 2.2 2.2 +0.4 3.3
+
+Two transactions will be created the first one which is paid from the Bank account and the counterparty is Wallet which has one element named transfer with the category TransferOut and the value -7.3 and the second one ""paid"" from the Wallet account and the counterparty Bank and the element transfer with the category TransferIn and the value 7.3. Element names, categories or counterparty are not allowed in transfers.</value>
+  </data>
+  <data name="HelpBoxView_ExamplesSectionTitle" xml:space="preserve">
+    <value>Examples</value>
+  </data>
+  <data name="HelpBoxView_GeneralHelpSectionContent" xml:space="preserve">
+    <value>Definitions:
+- Transaction - transaction/action done with external contractor: shop, employer, account outside your system.
+- Transfer - transaction/action done between internal accounts like from cash to bank. 
+- Tag - character in the beginning of word used to determine kind of data to assign it. 
+
+Features:
+- Each element of the transaction is assigned the nearest preceding category.
+- All words without a tag and that are not numbers are treated as the name of the transaction element. If there is no name, the current category will be assigned.
+- All words that are numbers after the given name are summed and recorded as the item price</value>
+  </data>
+  <data name="HelpBoxView_GeneralHelpSectionTitle" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="HelpBoxView_TagsSectionContent" xml:space="preserve">
+    <value>- &amp; - date. One date per transaction/transfer.
+- $ - account. Only one account can be indicated in a transaction. In a transfer two: source and destination. The flow of money is determined by the character '&gt;
+- # - category. It can be entered only for a transaction. Any item entered after the category will belong to it'.
+- @ - counterparty. One counterparty per transaction and only in a transaction can be entered.
+- + - used in transactions/transfers to specify revenue. By default all numbers are treated as negative unless a plus is used before them
+- no sign means that the word belongs to the transaction item name or is the item price.</value>
+  </data>
+  <data name="HelpBoxView_TagsSectionTitle" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="LanguageSelector_MessageBoxContent" xml:space="preserve">
+    <value>Please restart the application to apply the new language.</value>
+  </data>
+  <data name="LanguageSelector_MessageBoxTitle" xml:space="preserve">
+    <value>Restart Required</value>
+  </data>
+  <data name="PromptInput_ClearTextButton" xml:space="preserve">
+    <value>Clear text</value>
+  </data>
+  <data name="PromptInput_ProcessTextButton" xml:space="preserve">
+    <value>Add</value>
+  </data>
+</root>

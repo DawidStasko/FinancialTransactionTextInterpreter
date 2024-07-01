@@ -18,7 +18,7 @@ public partial class InscribedTransaction : ObservableObject
 					public InscribedTransaction(string text)
 					{
 										Id = Guid.NewGuid();
-										ProcessingResult = new Result<IList<Transaction>>() { ErrorMessages = new List<string>() { "Processing was not done yet." } };
+										ProcessingResult = new Result<IList<Transaction>>() { ErrorMessages = new List<string>() { Localization.Strings.ErrorMessage_ProcessingWasNotDoneYet } };
 										Text = text;
 					}
 }

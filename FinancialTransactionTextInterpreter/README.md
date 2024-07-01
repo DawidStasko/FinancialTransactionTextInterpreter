@@ -21,7 +21,7 @@ separate the classes as much as possible.
 
 ## Additional information
 
-The information contained here is particularly applicable to recruiters. 
+The following information is aimed specifically at recruiters.
 Please keep the following in mind: this application was primarily meant to solve 
 my problem therefore it contains a lot of simplifications that have no right to 
 be in a production application for a client, such as the lack of unit tests, strings 
@@ -29,8 +29,7 @@ in Polish, and which should be localizedstring. Definitely the application needs
 refine the system of logging errors and informing the user about it, or more MVVM-compliant 
 path selection for excel file or opening it. 
 
-
-## External libraries used by this project: 
+## 
 Many thanks to the creators of the following libraries:
 - [WPF UI by lepco](https://github.com/lepoco/wpfui)
 - [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet)

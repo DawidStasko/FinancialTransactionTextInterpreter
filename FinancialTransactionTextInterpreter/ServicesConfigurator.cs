@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Events;
 using Wpf.Ui;
-using WpfFinancialTransactionPromptInterpreter.ViewModels;
 
 namespace FinancialTransactionTextInterpreter;
 
@@ -28,14 +27,16 @@ internal class ServicesConfigurator
 															x.AddSerilog(logger);
 										});
 
+										serviceCollection.AddLocalization(o => o.ResourcesPath = "Localization");
+
 										//Views
 										serviceCollection.AddTransient<MainWindow>();
 
 										//ViewModels
 										serviceCollection.AddTransient<MainWindowVM>();
 										serviceCollection.AddTransient<InscribedTransactionsListVM>();
-										serviceCollection.AddTransient<PromptInputVM>();
-										serviceCollection.AddTransient<HelpBoxVM>();
+										serviceCollection.AddTransient<TextInputVM>();
+										serviceCollection.AddTransient<LanguageSelectorVM>();
 
 										//Services
 										serviceCollection.AddScoped<ITransactionInterpreterService, TransactionInterpreterService>();

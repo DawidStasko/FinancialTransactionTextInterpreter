@@ -11,6 +11,14 @@ namespace FinancialTransactionTextInterpreter;
 /// </summary>
 public partial class MainWindow : FluentWindow
 {
+					public static readonly DependencyProperty FilePathProperty =
+									DependencyProperty.Register("FilePath", typeof(string), typeof(MainWindow));
+
+					public string FilePath
+					{
+										get { return (string)GetValue(FilePathProperty); }
+										set { SetValue(FilePathProperty, value); }
+					}
 
 					public MainWindow(MainWindowVM mainWindowVM, ISnackbarService snackbarService)
 					{
@@ -27,8 +35,7 @@ public partial class MainWindow : FluentWindow
 										bool? result = fileDialog.ShowDialog();
 										if (result ?? false)
 										{
-															MainWindowVM mainWindowVM = (MainWindowVM)DataContext;
-															mainWindowVM.SetNewFileName(fileDialog.FileName);
+															FilePath = fileDialog.FileName;
 										}
 					}
 
@@ -51,6 +58,6 @@ public partial class MainWindow : FluentWindow
 										};
 
 										excelFile.Start();
-
 					}
+
 }
