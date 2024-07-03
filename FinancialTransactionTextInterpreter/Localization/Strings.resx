@@ -97,6 +97,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ErrorMessage_CategoryInTransferInformation" xml:space="preserve">
+    <value>Categories not allowed in transfer.</value>
+  </data>
+  <data name="ErrorMessage_ContractorInTransferInformation" xml:space="preserve">
+    <value>Contractor not allowed in transfer.</value>
+  </data>
   <data name="ErrorMessage_InformationAboutAccountsNumberInTransaction" xml:space="preserve">
     <value>Transaction text should contain at least one and no more than two accounts.</value>
   </data>
@@ -109,6 +115,12 @@
   <data name="ErrorMessage_InformationAboutDateFormat" xml:space="preserve">
     <value>Date format should be dd-MM-yyyy.</value>
   </data>
+  <data name="ErrorMessage_ItemsNamesInTransferInformation" xml:space="preserve">
+    <value>Details names not allowed in transfer transaction.</value>
+  </data>
+  <data name="ErrorMessage_MissingArrowCharInTransfer" xml:space="preserve">
+    <value>Transfer need to have explicit information about cashflow between two accounts  by '&gt;' character.</value>
+  </data>
   <data name="ErrorMessage_ProcessingWasNotDoneYet" xml:space="preserve">
     <value>Processing was not done yet.</value>
   </data>
@@ -117,6 +129,9 @@
   </data>
   <data name="ErrorMessage_UnexpectedErrorWhenProcessing" xml:space="preserve">
     <value>Unexpected error occurred when processing transaction.</value>
+  </data>
+  <data name="ErrorMessage_WrongStructureOfAccountsInTransfer" xml:space="preserve">
+    <value>Proper transfer need to define source and target accounts in this manner: $source &gt; $target.</value>
   </data>
   <data name="HelpBoxView_ExamplesSectionContent" xml:space="preserve">
     <value>- Transaction with item names:
@@ -163,16 +178,37 @@ Features:
   <data name="HelpBoxView_TagsSectionTitle" xml:space="preserve">
     <value>Tags</value>
   </data>
+  <data name="InscribedTransactionsListVM_SuccessfullySavedMessageContent" xml:space="preserve">
+    <value>Successfully saved {0} out of {1}.</value>
+  </data>
+  <data name="InscribedTransactionsListVM_SuccessfullySavedMessageTitle" xml:space="preserve">
+    <value>Transactions saved.</value>
+  </data>
   <data name="LanguageSelector_MessageBoxContent" xml:space="preserve">
     <value>Please restart the application to apply the new language.</value>
   </data>
   <data name="LanguageSelector_MessageBoxTitle" xml:space="preserve">
     <value>Restart Required</value>
   </data>
+  <data name="MainWindow_OpenHelpTooltip" xml:space="preserve">
+    <value>Open help.</value>
+  </data>
+  <data name="MainWindow_OpenXlsxFileTooltip" xml:space="preserve">
+    <value>Open xlsx file with financial data.</value>
+  </data>
+  <data name="MainWindow_SelectLanguageTooltip" xml:space="preserve">
+    <value>Select app language.</value>
+  </data>
+  <data name="MainWindow_SelectXlsxFileTooltip" xml:space="preserve">
+    <value>Select financial data xlsx file.</value>
+  </data>
   <data name="PromptInput_ClearTextButton" xml:space="preserve">
     <value>Clear text</value>
   </data>
   <data name="PromptInput_ProcessTextButton" xml:space="preserve">
     <value>Add</value>
+  </data>
+  <data name="TransactionsListView_SaveTransactionsButton" xml:space="preserve">
+    <value>Save Transactions</value>
   </data>
 </root>

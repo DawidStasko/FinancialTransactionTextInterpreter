@@ -19,6 +19,9 @@ public partial class MainWindowVM : ObservableObject
 					[ObservableProperty]
 					private Visibility _inscribedTransactionsListVisibility = Visibility.Visible;
 
+					[ObservableProperty]
+					private string _filePath;
+
 					public TextInputVM TextInputVM { get; }
 					public InscribedTransactionsListVM InscribedTransactionsListVM { get; }
 					public LanguageSelectorVM LanguageSelectorVM { get; }
@@ -31,11 +34,13 @@ public partial class MainWindowVM : ObservableObject
 										ArgumentNullException.ThrowIfNull(config);
 										ArgumentNullException.ThrowIfNull(snackbarService);
 
-										TextInputVM = textInputVM;
-										InscribedTransactionsListVM = inscribedTransactionsListVM;
 										_config = config;
 										_snackbarService = snackbarService;
+										TextInputVM = textInputVM;
+										InscribedTransactionsListVM = inscribedTransactionsListVM;
 										LanguageSelectorVM = languageSelectorVM;
+
+										_filePath = config.FinancialDataFullyQualifiedFileName;
 					}
 
 					partial void OnIsHelpBoxVisibleChanged(bool value)
@@ -52,6 +57,8 @@ public partial class MainWindowVM : ObservableObject
 										}
 					}
 
-					internal void SetNewFileName(string fileName) => _config.FinancialDataFullyQualifiedFileName = fileName;
-					internal string GetFilePath() => _config.FinancialDataFullyQualifiedFileName;
+					partial void OnFilePathChanged(string? oldValue, string newValue)
+					{
+										_config.FinancialDataFullyQualifiedFileName = newValue;
+					}
 }

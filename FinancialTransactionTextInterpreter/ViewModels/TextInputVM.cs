@@ -66,7 +66,7 @@ public partial class TextInputVM : ObservableObject
 										InscribedTransaction transaction = _actualTransaction ?? new InscribedTransaction("");
 										transaction.Text = TextInput;
 
-										transaction.ProcessingResult = _transactionInterpreterService?.ProcessTransactionText(transaction) ?? new Result<IList<Transaction>>() { ErrorMessages = ["TransactionInterpreterService is missing. Could not perform text processing."] };
+										transaction.ProcessingResult = _transactionInterpreterService.ProcessTransactionText(transaction);
 										_logger.LogInformation($"Processing transaction {transaction.Id}");
 
 										if (_actualTransaction == null)

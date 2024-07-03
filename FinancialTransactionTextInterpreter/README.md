@@ -24,10 +24,8 @@ separate the classes as much as possible.
 The following information is aimed specifically at recruiters.
 Please keep the following in mind: this application was primarily meant to solve 
 my problem therefore it contains a lot of simplifications that have no right to 
-be in a production application for a client, such as the lack of unit tests, strings 
-in Polish, and which should be localizedstring. Definitely the application needs to
-refine the system of logging errors and informing the user about it, or more MVVM-compliant 
-path selection for excel file or opening it. 
+be in a production application for a client, such as the lack of unit tests. Definitely the application needs to
+refine the system of logging errors and informing the user about it. 
 
 ## 
 Many thanks to the creators of the following libraries:

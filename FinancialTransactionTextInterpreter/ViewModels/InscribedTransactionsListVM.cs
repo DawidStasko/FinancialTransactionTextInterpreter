@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using FinancialTransactionTextInterpreter.Localization;
 using FinancialTransactionTextInterpreter.Logic.Services.Interfaces;
 using FinancialTransactionTextInterpreter.Model;
 using Microsoft.Extensions.Logging;
@@ -86,7 +87,7 @@ public partial class InscribedTransactionsListVM : ObservableObject
 
 										List<Transaction> successfullyProcessed = InscribedTransactions.Where(x => !x.HasErrors).SelectMany(x => x.ProcessingResult.Value!).ToList();
 										IList<Result<Transaction>> results = _transactionSaverService.SaveTransactions(successfullyProcessed);
-										_snackbarService.Show("Transactions saved", $"Successfully processed {results.Where(x => x.IsSuccess).Count()} out of {successfullyProcessed.Count}.", ControlAppearance.Primary, null, TimeSpan.FromSeconds(20));
+										_snackbarService.Show(Strings.InscribedTransactionsListVM_SuccessfullySavedMessageTitle, String.Format(Strings.InscribedTransactionsListVM_SuccessfullySavedMessageContent, results.Where(x => x.IsSuccess).Count(), successfullyProcessed.Count), ControlAppearance.Primary, null, TimeSpan.FromSeconds(20));
 										List<InscribedTransaction> newCollection = InscribedTransactions.Where(x => x.HasErrors).ToList();
 										newCollection.AddRange(results.Where(x => !x.IsSuccess).Select(x => new InscribedTransaction(x.Value?.ToString() ?? "")
 										{

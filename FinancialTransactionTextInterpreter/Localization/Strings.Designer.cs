@@ -61,6 +61,24 @@ namespace FinancialTransactionTextInterpreter.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Categories not allowed in transfer..
+        /// </summary>
+        public static string ErrorMessage_CategoryInTransferInformation {
+            get {
+                return ResourceManager.GetString("ErrorMessage_CategoryInTransferInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contractor not allowed in transfer..
+        /// </summary>
+        public static string ErrorMessage_ContractorInTransferInformation {
+            get {
+                return ResourceManager.GetString("ErrorMessage_ContractorInTransferInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transaction text should contain at least one and no more than two accounts..
         /// </summary>
         public static string ErrorMessage_InformationAboutAccountsNumberInTransaction {
@@ -97,6 +115,24 @@ namespace FinancialTransactionTextInterpreter.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Details names not allowed in transfer transaction..
+        /// </summary>
+        public static string ErrorMessage_ItemsNamesInTransferInformation {
+            get {
+                return ResourceManager.GetString("ErrorMessage_ItemsNamesInTransferInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer need to have explicit information about cashflow between two accounts  by &apos;&gt;&apos; character..
+        /// </summary>
+        public static string ErrorMessage_MissingArrowCharInTransfer {
+            get {
+                return ResourceManager.GetString("ErrorMessage_MissingArrowCharInTransfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Processing was not done yet..
         /// </summary>
         public static string ErrorMessage_ProcessingWasNotDoneYet {
@@ -120,6 +156,15 @@ namespace FinancialTransactionTextInterpreter.Localization {
         public static string ErrorMessage_UnexpectedErrorWhenProcessing {
             get {
                 return ResourceManager.GetString("ErrorMessage_UnexpectedErrorWhenProcessing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proper transfer need to define source and target accounts in this manner: $source &gt; $target..
+        /// </summary>
+        public static string ErrorMessage_WrongStructureOfAccountsInTransfer {
+            get {
+                return ResourceManager.GetString("ErrorMessage_WrongStructureOfAccountsInTransfer", resourceCulture);
             }
         }
         
@@ -196,6 +241,24 @@ namespace FinancialTransactionTextInterpreter.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Successfully saved {0} out of {1}..
+        /// </summary>
+        public static string InscribedTransactionsListVM_SuccessfullySavedMessageContent {
+            get {
+                return ResourceManager.GetString("InscribedTransactionsListVM_SuccessfullySavedMessageContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transactions saved..
+        /// </summary>
+        public static string InscribedTransactionsListVM_SuccessfullySavedMessageTitle {
+            get {
+                return ResourceManager.GetString("InscribedTransactionsListVM_SuccessfullySavedMessageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please restart the application to apply the new language..
         /// </summary>
         public static string LanguageSelector_MessageBoxContent {
@@ -214,6 +277,42 @@ namespace FinancialTransactionTextInterpreter.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open help..
+        /// </summary>
+        public static string MainWindow_OpenHelpTooltip {
+            get {
+                return ResourceManager.GetString("MainWindow_OpenHelpTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open xlsx file with financial data..
+        /// </summary>
+        public static string MainWindow_OpenXlsxFileTooltip {
+            get {
+                return ResourceManager.GetString("MainWindow_OpenXlsxFileTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select app language..
+        /// </summary>
+        public static string MainWindow_SelectLanguageTooltip {
+            get {
+                return ResourceManager.GetString("MainWindow_SelectLanguageTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select financial data xlsx file..
+        /// </summary>
+        public static string MainWindow_SelectXlsxFileTooltip {
+            get {
+                return ResourceManager.GetString("MainWindow_SelectXlsxFileTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear text.
         /// </summary>
         public static string PromptInput_ClearTextButton {
@@ -228,6 +327,15 @@ namespace FinancialTransactionTextInterpreter.Localization {
         public static string PromptInput_ProcessTextButton {
             get {
                 return ResourceManager.GetString("PromptInput_ProcessTextButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Transactions.
+        /// </summary>
+        public static string TransactionsListView_SaveTransactionsButton {
+            get {
+                return ResourceManager.GetString("TransactionsListView_SaveTransactionsButton", resourceCulture);
             }
         }
     }

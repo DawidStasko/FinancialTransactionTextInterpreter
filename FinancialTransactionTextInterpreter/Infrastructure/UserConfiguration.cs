@@ -43,11 +43,8 @@ public class UserConfiguration : IConfig
 															}
 															catch (Exception e)
 															{
-																				throw new SaveToFileException("Error saving configuration", e);
-															}
-															finally
-															{
 																				_financialDataFullyQualifiedFileName = oldValue;
+																				throw new SaveToFileException("Error saving configuration", e);
 															}
 															ConfigChanged?.Invoke(this, EventArgs.Empty);
 										}

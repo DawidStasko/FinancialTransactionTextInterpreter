@@ -5,52 +5,65 @@
 																	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 																	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 																	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-																	xmlns:local="clr-namespace:FinancialTransactionTextInterpreter"
-																	xmlns:customControls="clr-namespace:FinancialTransactionTextInterpreter.Views"
+																	xmlns:views="clr-namespace:FinancialTransactionTextInterpreter.Views"
 																	xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+																	xmlns:localization="clr-namespace:FinancialTransactionTextInterpreter.Localization"
 																	mc:Ignorable="d"
 																	Title="Financial Transaction Interpreter"
-																	WindowState="Maximized"
+																	WindowState="Normal"
 																	WindowStyle="None">
+					
 					<Grid>
 										<Grid>
 															<Grid.RowDefinitions>
 																				<RowDefinition Height="auto" />
-																				<RowDefinition Height="auto" />
-																				<RowDefinition Height="2*" />
-																				<RowDefinition Height="7*" />
+																				<RowDefinition Height="1*" />
+																				<RowDefinition Height="4*" />
+																				<RowDefinition Height="14*" />
 															</Grid.RowDefinitions>
 															<ui:TitleBar Title="FTTInterpreter"
 																												Grid.Row="0" />
-															<Menu Grid.Row="1">
-																				<ui:MenuItem Icon="{ui:SymbolIcon DocumentData32}"
-																																	Click="OpenFileDialog"
-																																	ToolTip="Select financial data xlsx file." />
-																				<ui:MenuItem Icon="{ui:SymbolIcon BookQuestionMarkRtl24}"
-																																	IsCheckable="True"
-																																	IsChecked="{Binding IsHelpBoxVisible}"
-																																	ToolTip="Open help." />
-																				<ui:MenuItem Icon="{ui:SymbolIcon Open32}"
-																																	Click="OpenExcelFile"
-																																	ToolTip="Open xlsx file with financial data." />
+															<StackPanel Grid.Row="1"
+																											Orientation="Horizontal">
+																				<StackPanel.Resources>
+																									<Style TargetType="{x:Type Separator}">
+																														<Setter Property="Width" Value="10"/>
+																														<Setter Property="Background" Value="Transparent"/>
+																									</Style>
+																				</StackPanel.Resources>
+																				<Separator />
+																				<views:XlsxFileSelectorDialog FilePath="{Binding FilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="75"/>
+																				<Separator/>
+																				<views:OpenXlsxFileButton FilePath="{Binding FilePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+																																														Width="75" />
+																				<Separator />
+																				<views:LanguageSelectorView DataContext="{Binding LanguageSelectorVM}"
+																																																Width="75" />
+																				<Separator />
+																				<ToggleButton IsChecked="{Binding IsHelpBoxVisible}"
+																																		ToolTip="{x:Static localization:Strings.MainWindow_OpenHelpTooltip}"
+																																		Width="75"
+																																		HorizontalAlignment="Stretch"
+																																		VerticalAlignment="Stretch">
+																																			
+																									<ui:SymbolIcon Symbol="BookQuestionMarkRtl24" />
+																				</ToggleButton>
 
-																				<customControls:LanguageSelectorView DataContext="{Binding LanguageSelectorVM}"></customControls:LanguageSelectorView>
-
-															</Menu>
-															<customControls:TextInput x:Name="TextInputControl"
-																																											Grid.Row="2"
-																																									DataContext="{Binding TextInputVM}" />
-															<customControls:TransactionsListView x:Name="MainWindow_TransactionsList"
-																																																				Grid.Row="3"
-																																																				DataContext="{Binding InscribedTransactionsListVM}"
-																																																				Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+															</StackPanel>
+															<views:TextInput x:Name="TextInputControl"
+																																Grid.Row="2"
+																																DataContext="{Binding TextInputVM}" />
+															<views:TransactionsListView x:Name="MainWindow_TransactionsList"
+																																											Grid.Row="3"
+																																											DataContext="{Binding InscribedTransactionsListVM}"
+																																											Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
                                                          AncestorType={x:Type Window}},
 																																																									Mode=OneWay,
                                                          Path=DataContext.InscribedTransactionsListVisibility}" />
-															<customControls:HelpView x:Name="MainWindow_HelpBox"
-																																							Grid.Row="3"
-																																							Panel.ZIndex="100"
-																																							Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+															<views:HelpView x:Name="MainWindow_HelpBox"
+																															Grid.Row="3"
+																															Panel.ZIndex="100"
+																															Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
                                                          AncestorType={x:Type Window}},
 																																																									Mode=OneWay,
                                                          Path=DataContext.HelpBoxVisibility}" />

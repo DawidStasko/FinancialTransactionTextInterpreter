@@ -97,6 +97,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ErrorMessage_CategoryInTransferInformation" xml:space="preserve">
+    <value>Kategorie nie są dozwolone w transferach.</value>
+  </data>
+  <data name="ErrorMessage_ContractorInTransferInformation" xml:space="preserve">
+    <value>Kontrachent nie jest dozwolony w transferach.</value>
+  </data>
   <data name="ErrorMessage_InformationAboutAccountsNumberInTransaction" xml:space="preserve">
     <value>Tekst transakcji powinien zawierać co najmniej jedno i nie więcej niż dwa konta.</value>
   </data>
@@ -109,6 +115,12 @@
   <data name="ErrorMessage_InformationAboutDateFormat" xml:space="preserve">
     <value>Data powinna mieć format dd-MM-yyyy.</value>
   </data>
+  <data name="ErrorMessage_ItemsNamesInTransferInformation" xml:space="preserve">
+    <value>Nazwy detali nie są dozwolone w transferach.</value>
+  </data>
+  <data name="ErrorMessage_MissingArrowCharInTransfer" xml:space="preserve">
+    <value>Transfer gotówki wymaga wskazania kierunku przepływu pieniędzy poprzez znak: '&gt;'.</value>
+  </data>
   <data name="ErrorMessage_ProcessingWasNotDoneYet" xml:space="preserve">
     <value>Tekst transakcji nie został jeszcze zinterpretowany.</value>
   </data>
@@ -117,6 +129,9 @@
   </data>
   <data name="ErrorMessage_UnexpectedErrorWhenProcessing" xml:space="preserve">
     <value>Niespodziewany błąd podczas procesowania transakcji.</value>
+  </data>
+  <data name="ErrorMessage_WrongStructureOfAccountsInTransfer" xml:space="preserve">
+    <value>Poprawny transfer musi mieć zdefiniowane dwa konta w następujący sposób: $źródło &gt; $kontodocelowe.</value>
   </data>
   <data name="HelpBoxView_ExamplesSectionContent" xml:space="preserve">
     <value>- Transakcja z nazwami elementów:
@@ -163,16 +178,37 @@ Funkcjonalności:
   <data name="HelpBoxView_TagsSectionTitle" xml:space="preserve">
     <value>Tagi</value>
   </data>
+  <data name="InscribedTransactionsListVM_SuccessfullySavedMessageContent" xml:space="preserve">
+    <value>Poprawnie zapisano {0} z {1}.</value>
+  </data>
+  <data name="InscribedTransactionsListVM_SuccessfullySavedMessageTitle" xml:space="preserve">
+    <value>Zapis zakończony.</value>
+  </data>
   <data name="LanguageSelector_MessageBoxContent" xml:space="preserve">
     <value>Aplikacja wymaga ponownego uruchomienia w celu wprowadzenia zmian w ustawieniach.</value>
   </data>
   <data name="LanguageSelector_MessageBoxTitle" xml:space="preserve">
     <value>Wymagane ponowne uruchomienie</value>
   </data>
+  <data name="MainWindow_OpenHelpTooltip" xml:space="preserve">
+    <value>Otwórz pomoc.</value>
+  </data>
+  <data name="MainWindow_OpenXlsxFileTooltip" xml:space="preserve">
+    <value>Otwórz plik xlsx z danymi finansowymi.</value>
+  </data>
+  <data name="MainWindow_SelectLanguageTooltip" xml:space="preserve">
+    <value>Wybierz język aplikacji.</value>
+  </data>
+  <data name="MainWindow_SelectXlsxFileTooltip" xml:space="preserve">
+    <value>Wybierz plik xlsx z danymi finansowymi.</value>
+  </data>
   <data name="PromptInput_ClearTextButton" xml:space="preserve">
     <value>Wyczyść tekst</value>
   </data>
   <data name="PromptInput_ProcessTextButton" xml:space="preserve">
     <value>Dodaj</value>
+  </data>
+  <data name="TransactionsListView_SaveTransactionsButton" xml:space="preserve">
+    <value>Zapisz transakcje</value>
   </data>
 </root>

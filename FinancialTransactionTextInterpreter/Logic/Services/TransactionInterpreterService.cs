@@ -1,4 +1,5 @@
-﻿using FinancialTransactionTextInterpreter.Logic.Services.Interfaces;
+﻿using FinancialTransactionTextInterpreter.Localization;
+using FinancialTransactionTextInterpreter.Logic.Services.Interfaces;
 using FinancialTransactionTextInterpreter.Model;
 using System.Globalization;
 using System.Text;
@@ -158,19 +159,19 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 																				case '&':
 																									bool result = DateOnly.TryParseExact(word.Substring(1), "dd-MM-yyyy", out date);
 																									if (!result)
-																														errors.Add(Localization.Strings.ErrorMessage_InformationAboutDateFormat);
+																														errors.Add(Strings.ErrorMessage_InformationAboutDateFormat);
 																									break;
 																				case '$':
 																									sourceAccount = word.Substring(1);
 																									if (transactionTextWords[i + 1] != ">")
 																									{
-																														errors.Add("'>' need to show cashflow from source account to target account and need to be right between two accounts.");
+																														errors.Add(Strings.ErrorMessage_MissingArrowCharInTransfer);
 																														break;
 																									}
 
 																									if (transactionTextWords[i + 2][0] != '$')
 																									{
-																														errors.Add("Proper transfer transactions need to define source and target accounts in this manner: $source > $target");
+																														errors.Add(Strings.ErrorMessage_WrongStructureOfAccountsInTransfer);
 																														break;
 																									}
 
@@ -178,10 +179,10 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 																									i += 2;
 																									break;
 																				case '@':
-																									errors.Add("Contractor not allowed in transfer transaction.");
+																									errors.Add(Strings.ErrorMessage_ContractorInTransferInformation);
 																									break;
 																				case '#':
-																									errors.Add("Categories not allowed in transfer transaction.");
+																									errors.Add(Strings.ErrorMessage_CategoryInTransferInformation);
 																									break;
 																				case '!':
 																									tagsList.Add(word.Substring(1));
@@ -190,7 +191,7 @@ public class TransactionInterpreterService : ITransactionInterpreterService
 																									bool isPrice = TryParseDecimal(word, out decimal price);
 																									if (!isPrice)
 																									{
-																														errors.Add("Details names not allowed in transfer transaction.");
+																														errors.Add(Strings.ErrorMessage_ItemsNamesInTransferInformation);
 																														break;
 																									}
 																									items.Add(price);
