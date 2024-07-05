@@ -79,6 +79,24 @@ namespace FinancialTransactionTextInterpreter.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File is not an excel file..
+        /// </summary>
+        public static string ErrorMessage_FileIsNotAnExcelFile {
+            get {
+                return ResourceManager.GetString("ErrorMessage_FileIsNotAnExcelFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File path is not set in the configuration..
+        /// </summary>
+        public static string ErrorMessage_FilePathIsNotSetInTheConfiguration {
+            get {
+                return ResourceManager.GetString("ErrorMessage_FilePathIsNotSetInTheConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transaction text should contain at least one and no more than two accounts..
         /// </summary>
         public static string ErrorMessage_InformationAboutAccountsNumberInTransaction {

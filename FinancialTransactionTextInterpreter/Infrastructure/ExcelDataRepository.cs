@@ -78,7 +78,7 @@ public class ExcelDataRepository : ICategoriesRepository, IAccountsRepository, I
 															return DateOnly.FromDateTime(DateTime.Now);
 
 										using XLWorkbook workbook = new(_config.FinancialDataFullyQualifiedFileName);
-										IXLWorksheet? worksheet = GetLastMothWorksheet(workbook);
+										IXLWorksheet? worksheet = GetLastMonthWorksheet(workbook);
 										IXLRow? lastRow = worksheet?.LastRowUsed();
 
 										if (lastRow == null)
@@ -89,7 +89,7 @@ public class ExcelDataRepository : ICategoriesRepository, IAccountsRepository, I
 
 					}
 
-					private IXLWorksheet? GetLastMothWorksheet(XLWorkbook workbook)
+					private IXLWorksheet? GetLastMonthWorksheet(XLWorkbook workbook)
 					{
 										IXLWorksheets allWorksheet = workbook.Worksheets;
 										IList<DateOnly> worksheetNamesAsDates = [];

@@ -6,6 +6,7 @@ using System.IO;
 namespace FinancialTransactionTextInterpreter.Infrastructure;
 public class UserConfiguration : IConfig
 {
+					//TODO: Extract file logic to separate class
 					private string _fileName = "";
 					private string _financialDataFullyQualifiedFileName = "";
 					private string _applicationLanguage = "";

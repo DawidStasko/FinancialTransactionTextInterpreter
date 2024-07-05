@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Data;
 
 namespace FinancialTransactionTextInterpreter.Logic.Converters;
-internal class BoolToVisibilityConverter : IValueConverter
+public class BoolToVisibilityConverter : IValueConverter
 {
 					private bool _invert = false;
 					private Visibility _nonVisibleState = Visibility.Collapsed;
@@ -34,8 +34,7 @@ internal class BoolToVisibilityConverter : IValueConverter
 
 					public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 					{
-										Visibility tmp = _InvertIfNeeded((bool)value) ? Visibility.Visible : _nonVisibleState;
-										return tmp;
+										return _InvertIfNeeded((bool)value) ? Visibility.Visible : _nonVisibleState;
 					}
 
 					public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

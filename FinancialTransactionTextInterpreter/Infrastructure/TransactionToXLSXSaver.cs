@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using FinancialTransactionTextInterpreter.Localization;
 using FinancialTransactionTextInterpreter.Logic.InfrastructureInterfaces;
 using FinancialTransactionTextInterpreter.Model;
 using FinancialTransactionTextInterpreter.Model.Interfaces;
@@ -18,9 +19,9 @@ public class TransactionToXLSXSaver : ITransactionsRepository
 					public Result<Transaction> Save(Transaction transaction)
 					{
 										if (string.IsNullOrWhiteSpace(_config.FinancialDataFullyQualifiedFileName))
-															return new Result<Transaction>() { Value = transaction, ErrorMessages = ["File path is not set in the configuration."] };
+															return new Result<Transaction>() { Value = transaction, ErrorMessages = [Strings.ErrorMessage_FilePathIsNotSetInTheConfiguration] };
 										if (!_config.FinancialDataFullyQualifiedFileName.EndsWith(".xlsx"))
-															return new Result<Transaction>() { Value = transaction, ErrorMessages = ["File is not an excel file."] };
+															return new Result<Transaction>() { Value = transaction, ErrorMessages = [Strings.ErrorMessage_FileIsNotAnExcelFile] };
 
 										List<string> errorMessages = new();
 										try

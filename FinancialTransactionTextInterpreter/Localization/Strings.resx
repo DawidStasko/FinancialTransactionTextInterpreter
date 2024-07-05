@@ -103,6 +103,12 @@
   <data name="ErrorMessage_ContractorInTransferInformation" xml:space="preserve">
     <value>Contractor not allowed in transfer.</value>
   </data>
+  <data name="ErrorMessage_FileIsNotAnExcelFile" xml:space="preserve">
+    <value>File is not an excel file.</value>
+  </data>
+  <data name="ErrorMessage_FilePathIsNotSetInTheConfiguration" xml:space="preserve">
+    <value>File path is not set in the configuration.</value>
+  </data>
   <data name="ErrorMessage_InformationAboutAccountsNumberInTransaction" xml:space="preserve">
     <value>Transaction text should contain at least one and no more than two accounts.</value>
   </data>
