@@ -205,7 +205,7 @@ public partial class CustomTextBox : UserControl
 															result = ReplaceActualWordWithSuggestionAndCalculateNewIndex(SelectedItem!);
 										}
 
-										if (SelectedItem == null && SuggestionsList != null && SuggestionsList.Count > 0)
+										if (SelectedItem == null && SuggestionsList != null && SuggestionsList.Count > 0 && result == null)
 										{
 															result = ReplaceActualWordWithSuggestionAndCalculateNewIndex(SuggestionsList[0]);
 										}

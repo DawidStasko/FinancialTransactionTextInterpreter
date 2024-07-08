@@ -27,8 +27,21 @@ public partial class App : Application
 										ArgumentNullException.ThrowIfNull(ServiceProvider);
 
 										IConfig config = ServiceProvider.GetRequiredService<IConfig>();
-										Thread.CurrentThread.CurrentCulture = new CultureInfo(config.ApplicationLanguage);
-										Thread.CurrentThread.CurrentUICulture = new CultureInfo(config.ApplicationLanguage);
+
+										CultureInfo culture = new(config.ApplicationLanguage)
+										{
+															DateTimeFormat = new DateTimeFormatInfo()
+															{
+																				ShortDatePattern = "dd-MM-yyyy",
+																				DateSeparator = "-",
+																				LongTimePattern = "HH:mm:ss",
+																				ShortTimePattern = "HH:mm"
+															}
+
+										};
+										Thread.CurrentThread.CurrentCulture = culture;
+										Thread.CurrentThread.CurrentUICulture = culture;
+
 
 										MainWindow? mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
 										ArgumentNullException.ThrowIfNull(mainWindow);
